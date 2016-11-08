@@ -1,3 +1,6 @@
+//Nerd.js communicates with the database
+//Documentation: http://mongoosejs.com/docs/guide.html
+
 // grab the mongoose module
 var mongoose = require('mongoose');
 
@@ -6,3 +9,14 @@ var mongoose = require('mongoose');
 module.exports = mongoose.model('Nerd', {
 	name : {type : String, default: ''}
 });
+
+
+var Schema = mongoose.Schema;
+
+var loginSchema = new Schema({
+  username:  String,
+  password: String
+});
+
+var login = mongoose.model('login', loginSchema);
+module.exports = login;
