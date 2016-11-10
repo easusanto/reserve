@@ -9,15 +9,3 @@ var mongoose = require('mongoose');
 module.exports = mongoose.model('Nerd', {
 	name : {type : String, default: ''}
 });
-
-
-var Schema = mongoose.Schema;
-
-var loginSchema = new Schema({
-  username:  String,
-  password: String
-});
-
-var login = mongoose.model('login', loginSchema);
-//Modeul exports
-module.exports = login;
