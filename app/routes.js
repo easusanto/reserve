@@ -1,4 +1,4 @@
-module.exports = function(app, Login) {
+module.exports = function(app, User) {
 
 	// server routes ===========================================================
 	// handle things like api calls
@@ -9,34 +9,56 @@ module.exports = function(app, Login) {
 	// app.get('*', function(req, res) {
 	// 	res.sendfile('./public/index.html');
 	// });
-    app.use('/api', function(req, res, next) {
-        // do logging
-        console.log('Something is happening.');
-        next(); // make sure we go to the next routes and don't stop here
+    // app.use('/api', function(req, res, next) {
+    //     // do logging
+    //     console.log('Something is happening.');
+    //     next(); // make sure we go to the next routes and don't stop here
+    // });
+    // app.get('/api', function(req, res) {
+    //     res.json({ message: 'POOP! welcome to our api!' });   
+    // });
+
+
+    app.post('/login', function(req, res){
+        var username = req.body.username;
+        var password = req.body.password;
+
+        User.findOne({username: username, password: password}, function(err, user){
+            if(err){
+                console.log(err);
+                return res.status(500).send();
+            }
+            if(!user){
+                res.json({ message: 'User/password is incorrect.' });
+                return res.status(404).send();
+            }
+
+            res.json({ message: 'Login successful!' });
+            return res.status(200).send();
+        })
     });
-    app.get('/api', function(req, res) {
-        res.json({ message: 'POOP! welcome to our api!' });   
+
+    app.post('/register', function(req, res) {
+        var username = req.body.username;
+        var password = req.body.password;
+        var firstname = req.body.firstname;
+        var lastname = req.body.lastname;
+
+        var newuser = new User();
+        newuser.username = username;
+        newuser.password = password;
+        newuser.firstname = firstname;
+        newuser.lastname = lastname; 
+
+        newuser.save(function(err, savedUser){
+            if(err){
+                console.log(err);
+                return res.status(500).send();
+            }
+
+            res.json({ message: 'User created!' });
+            return res.status(200).send();
+
+        })
     });
-
-
-    app.route('/api/login')
-
-    // create a bear (accessed at POST http://localhost:8080/api/bears)
-    .post(function(req, res) {
-        
-        var login = new Login();      // create a new instance of the Bear model
-        login.username = req.body.username;  // set the bears name (comes from the request)
-        login.password = req.body.password;
-
-        // save the bear and check for errors
-        login.save(function(err) {
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Login tested!' });
-        });
-        
-    });
-
-
 };
