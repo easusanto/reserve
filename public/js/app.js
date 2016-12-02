@@ -16,18 +16,18 @@ angular.module('BasicHttpAuthExample', [
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-        .when('/login', {
+        .when('/', {
             controller: 'LoginController',
             templateUrl: 'public/views/login.html',
             hideMenus: true
         })
  
-        .when('/', {
+        .when('/user_reserve_restaurant', {
             controller: 'HomeController',
-            templateUrl: 'public/home.html'
+            templateUrl: 'public/user_reserve_restaurant.html'
         })
  
-        .otherwise({ redirectTo: '/login' });
+        .otherwise({ redirectTo: '/' });
 }])
  
 .run(['$rootScope', '$location', '$cookieStore', '$http',

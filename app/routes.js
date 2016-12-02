@@ -29,11 +29,11 @@ module.exports = function(app, User) {
                 return res.status(500).send();
             }
             if(!user){
-                res.json({ message: 'User/password is incorrect.' });
+                res.json({ message: 'failure' });
                 return res.status(404).send();
             }
-
-            res.json({ message: 'Login successful!' });
+            res.user = user;
+            res.json({ message: 'success' });
             return res.status(200).send();
         })
     });
@@ -41,14 +41,12 @@ module.exports = function(app, User) {
     app.post('/register', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
-        var firstname = req.body.firstname;
-        var lastname = req.body.lastname;
+        var account_type = req.body.account_type;
 
         var newuser = new User();
         newuser.username = username;
         newuser.password = password;
-        newuser.firstname = firstname;
-        newuser.lastname = lastname; 
+        newuser.account_type = account_type;
 
         newuser.save(function(err, savedUser){
             if(err){
