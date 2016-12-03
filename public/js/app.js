@@ -1,4 +1,4 @@
-angular.module('myApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainService', 'LoginCtrl', 'NerdService', 'GeekCtrl', 'GeekService']);
+angular.module('myApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainService', 'LoginCtrl', 'NerdService', 'GeekCtrl', 'GeekService', 'CalendarCtrl']);
 
 'use strict';
 
@@ -21,15 +21,20 @@ angular.module('BasicHttpAuthExample', [
             templateUrl: 'public/views/login.html',
             hideMenus: true
         })
- 
+
         .when('/user_reserve_restaurant', {
             controller: 'HomeController',
             templateUrl: 'public/user_reserve_restaurant.html'
         })
- 
+
+        .when('/calendar', {
+            controller: 'CalendarController',
+            templateUrl: 'public/calendar.html'
+        })
+
         .otherwise({ redirectTo: '/' });
 }])
- 
+
 .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
