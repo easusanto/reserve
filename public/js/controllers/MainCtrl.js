@@ -1,7 +1,5 @@
 var app = angular.module('myApp', []);
 
-//'ngMaterial', 'ngMessages', 'material.svgAssetsCache'
-
 app.controller('MainController', function ($scope) {
     $scope.username = "";
     $scope.restaurant_name = "";
@@ -20,6 +18,64 @@ app.controller('MainController', function ($scope) {
     $scope.section4Toggle = false;
     $scope.section5Toggle = false;
 
+    $scope.restaurants_information = [
+    {
+        "restaurant_name": "Hokie House",
+        "short_name": "hh",
+        "description": "A venerable bi-level spot for beers, burgers &amp; pub grub, as well as sports on TV, billiards &amp; darts.",
+        "section_options": {
+            "part": [{
+                "type": "top",
+                "max_people": 200,
+                "min_people": 75
+            }, {
+                "type": "bottom",
+                "max_people": 100,
+                "min_people": 30
+            }, {
+                "type": "bottom-nobar",
+                "max_people": 100,
+                "min_people": 30
+            }],
+            "all": [{
+                "max_people": 500,
+                "min_people": 100
+            }]
+        },
+        "menu": {
+            "appetizers": [{
+                "name": "chips",
+                "price": 8
+            }, {
+                "name": "carrots",
+                "price": 5
+            }, {
+                "name": "chicken bites",
+                "price": 10
+            }],
+            "entrees": [{
+                "name": "grilled chicken",
+                "price": 15
+            }, {
+                "name": "steak",
+                "price": 15
+            }, {
+                "name": "pizza",
+                "price": 10
+            }],
+            "drinks": [{
+                "name": "orange juice",
+                "price": 5
+            }, {
+                "name": "sweet tea",
+                "price": 5
+            }, {
+                "name": "milk",
+                "price": 6
+            }]
+        }
+    }
+    ];
 
     $scope.section1 = function(rest_name) {
         restaurant_name = rest_name;
@@ -29,15 +85,57 @@ app.controller('MainController', function ($scope) {
     };
     $scope.section2 = function(section) {
         section_of_venue = section;
-        $scope.section2Toggle = false;
-        $scope.section3Toggle = true;
-        console.log(section);
+
+        if(section_of_venue == 'part'){
+            $scope.section2Toggle = false;
+            $scope.section3Toggle = true;
+        }
+        else if (section_of_venue == 'all'){
+            $scope.section2Toggle = false;
+            $scope.section4Toggle = true;
+        }
+        else {
+            $scope.section2Toggle = false;
+            $scope.section5Toggle = true;
+        }
+
     };
-    $scope.back = function(current, previous) {
-        //current = false;
-        console.log(current);
-        console.log(previous);
-        //previous = true;
+    $scope.section3 = function(num_of_people) {
+        number_of_people = num_of_people;
+        $scope.section3Toggle = false;
+        $scope.section4Toggle = true;
+    };
+    $scope.section4 = function(choices) {
+        section_of_venue = section;
+
+        if(section_of_venue == 'part'){
+            $scope.section2Toggle = false;
+            $scope.section3Toggle = true;
+        }
+        else if (section_of_venue == 'all'){
+            $scope.section2Toggle = false;
+            $scope.section4Toggle = true;
+        }
+        else {
+            $scope.section2Toggle = false;
+            $scope.section5Toggle = true;
+        }
+
+    };
+
+    $scope.back = function(sectionNumber) {
+        if(sectionNumber == 2){
+            $scope.section1Toggle = true;
+            $scope.section2Toggle = false;
+        }
+        else if(sectionNumber == 3){
+            $scope.section2Toggle = true;
+            $scope.section3Toggle = false;
+        }
+        else if(sectionNumber == 4){
+            $scope.section3Toggle = true;
+            $scope.section4Toggle = false;
+        }
     };
     $scope.restaurant_data = function(reservation) {
         var data1 = {
