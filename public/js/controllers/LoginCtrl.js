@@ -32,7 +32,7 @@ app.controller('LoginController',
         $scope.signup_restaurant = function(user) {
 
             var data1 = {
-                username: user.username,
+                username: user.username, 
                 password: user.password,
                 account_type: "restaurant"
             };

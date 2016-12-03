@@ -1,4 +1,4 @@
-module.exports = function(app, User) {
+module.exports = function(app, User, Reservation) {
 
 	// server routes ===========================================================
 	// handle things like api calls
@@ -55,6 +55,60 @@ module.exports = function(app, User) {
             }
 
             res.json({ message: 'User created!' });
+            return res.status(200).send();
+
+        })
+    });
+
+    app.post('/get_user_reservations', function(req, res){
+        var username = req.body.username;
+
+        Reservation.findAll({username: username}, function(err, reservation){
+            if(err){
+                console.log(err);
+                return res.status(500).send();
+            }
+            if(!user){
+                res.json({ message: 'failure' });
+                return res.status(404).send();
+            }
+            res.user = user;
+            res.json({ message: 'success' });
+            return res.status(200).send();
+        })
+    });
+
+    app.post('/send_user_reservations', function(req, res) {
+        var restaurant_name = req.body.restaurant_name;
+        var username = req.body.username;
+        var section_of_venue = req.body.section_of_venue;   //part or all or NA
+        var catering = req.body.catering;                   //true or false or NA
+        var catering_options = req.body.catering_options    //json format
+        var date = req.body.date;
+        var start_time = req.body.start_time;
+        var end_time = req.body.end_time;
+        var number_of_people = req.body.number_of_people;
+        var requests = req.body.requests;
+
+        var newreservation = new Reservation();
+        newreservation.username = username;
+        newreservation.restaurant_name = restaurant_name;
+        newreservation.section_of_venue = section_of_venue;
+        newreservation.catering = catering;
+        newreservation.catering_options = catering_options;
+        newreservation.date = date;
+        newreservation.start_time = start_time;
+        newreservation.end_time = end_time;
+        newreservation.number_of_people = number_of_people;
+        newreservation.requests = requests;
+
+        newreservation.save(function(err, savedReservation){
+            if(err){
+                console.log(err);
+                return res.status(500).send();
+            }
+
+            res.json({ message: 'Reservation created!' });
             return res.status(200).send();
 
         })
