@@ -5,6 +5,8 @@
     "bootstrap": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "angular-material": "^1.1.1"
-  }
+    "angular-material": "^1.1.1",
+    "angular-ui-calendar": "latest"
+  },
+  "resolutions": { "angular": "1.4.14" }
 }
