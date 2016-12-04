@@ -15,7 +15,7 @@ module.exports = function(app, User, Reservation) {
     //     next(); // make sure we go to the next routes and don't stop here
     // });
     // app.get('/api', function(req, res) {
-    //     res.json({ message: 'POOP! welcome to our api!' });   
+    //     res.json({ message: 'POOP! welcome to our api!' });
     // });
 
 
@@ -60,19 +60,39 @@ module.exports = function(app, User, Reservation) {
         })
     });
 
+    app.post('/get_restaurant_reservations', function(req, res){
+        var restaurant_name = req.body.restaurant_name;
+        console.log(restaurant_name);
+        Reservation.find({restaurant_name: restaurant_name}, function(err, reservation){
+            if(err){
+                console.log("Error: ", err);
+                return res.status(500).send();
+            }
+            if(!reservation){
+                res.json({ message: 'failure' });
+                return res.status(404).send();
+            }
+            console.log("Error: ", err);
+            console.log("Reservation: ", reservation);
+            res.reservation = reservation;
+            res.json(reservation);
+            return res.status(200).send();
+        })
+    });
+
     app.post('/get_user_reservations', function(req, res){
         var username = req.body.username;
-
-        Reservation.findAll({username: username}, function(err, reservation){
+        console.log(username);
+        Reservation.find({username: username}, function(err, reservation){
             if(err){
                 console.log(err);
                 return res.status(500).send();
             }
-            if(!user){
+            if(!reservation){
                 res.json({ message: 'failure' });
                 return res.status(404).send();
             }
-            res.user = user;
+            res.reservation = reservation;
             res.json({ message: 'success' });
             return res.status(200).send();
         })
@@ -105,6 +125,7 @@ module.exports = function(app, User, Reservation) {
         newreservation.save(function(err, savedReservation){
             if(err){
                 console.log(err);
+                res.json({  message: err});
                 return res.status(500).send();
             }
 

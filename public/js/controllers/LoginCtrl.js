@@ -32,7 +32,7 @@ app.controller('LoginController',
         $scope.signup_restaurant = function(user) {
 
             var data1 = {
-                username: user.username, 
+                username: user.username,
                 password: user.password,
                 account_type: "restaurant"
             };
@@ -43,7 +43,7 @@ app.controller('LoginController',
                 data: JSON.stringify(data1),
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here 
+                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
                 console.log("sign up successful.");
             }).error(function (data, status, headers, config) {
                 console.log(data);
@@ -64,7 +64,7 @@ app.controller('LoginController',
                 data: JSON.stringify(data1),
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here 
+                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
                 console.log("sign up successful.");
             }).error(function (data, status, headers, config) {
                 console.log(data);

@@ -3,7 +3,7 @@ var Schema       = mongoose.Schema;
 
 var reservationSchema = new Schema({
     username: {type: String},
-    restaurant_name:  {type: String, unique: true},
+    restaurant_name:  {type: String},
     section_of_venue: {type: String},   //part or all or NA
     catering: {type: Boolean},          //true or false or NA
     catering_options: {type: Schema.Types.Mixed},   //json format
