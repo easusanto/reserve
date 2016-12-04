@@ -309,7 +309,7 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <div ng-show="if($scope.restaurant_name == 'hh')">
+                                <div ng-show="hh">
                                     <tbody ng-repeat="item in restaurant_info.hh.menu.appetizers.items">
                                         <tr>
                                             <td><input type="number" style="width:15%"></input></td>
@@ -318,7 +318,7 @@
                                         </tr>
                                     </tbody>
                                 </div>
-                                <div ng-show="if($scope.restaurant_name == 'pk')">
+                                <div ng-show="pk">
                                     <tbody ng-repeat="item in restaurant_info.pk.menu.appetizers.items">
                                         <tr>
                                             <td><input type="number" style="width:15%"></input></td>
@@ -327,7 +327,7 @@
                                         </tr>
                                     </tbody>
                                 </div>
-                                <div ng-show="if($scope.restaurant_name == 'sycamore')">
+                                <div ng-show="sycamore">
                                     <tbody ng-repeat="item in restaurant_info.sycamore.menu.appetizers.items">
                                         <tr>
                                             <td><input type="number" style="width:15%"></input></td>
@@ -430,7 +430,60 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
                         <h2>CALENDAR PAGE</h2>
-                        
+
+                        <!-- <section id="directives-calendar" ng-controller="CalendarController">
+                            <div class="well">
+                                <div class="row-fluid">
+                                    <div class="span4">
+
+                                        <div class="btn-group calTools">
+                                          <button class="btn" ng-click="initEvents()">
+                                            Data
+                                          </button>
+                                          <button class="btn" ng-click="changeLang()">
+                                            {{changeTo}}
+                                          </button>
+                                          <button class="btn" ng-click="addRemoveEventSource(eventSources,eventSource)">
+                                            Toggle Source
+                                          </button>
+                                          <button type="button" class="btn btn-primary" ng-click="addEvent()">
+                                            Add Event
+                                          </button>
+                                        </div>
+
+                                        <ul class="unstyled">
+                                            <li ng-repeat="e in events">
+                                                <div class="alert alert-info">
+                                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
+                                                    <b> <input ng-model="e.title"></b>
+                                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="span8">
+
+                                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+                                                <h4>{{alertMessage}}</h4>
+                                              </div>
+                                              <div class="btn-toolbar">
+                                                <p class="pull-right lead">Calendar One View Options</p>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+                                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+                                                    <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
+                                                </div>
+                                              </div>
+                                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </section>
+                         -->
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(6)">Back</a>
