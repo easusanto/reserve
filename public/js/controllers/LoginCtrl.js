@@ -18,6 +18,7 @@ app.controller('LoginController',
             }).success(function (data, status, headers, config) {
                 if(data.message==="success"){
                     changeLocation('/user_reserve_restaurant.html', true);
+                    $rootScope.username = user.username;
                     console.log(data.message);
                 }
                 else{
