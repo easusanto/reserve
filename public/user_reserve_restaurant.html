@@ -32,8 +32,6 @@
     <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
     <script src="/node_modules/angular/angular.js"></script> 
     <script src="/node_modules/angular-aria/angular-aria.js"></script> 
     <script src="/node_modules/angular-animate/angular-animate.js"></script> 
@@ -89,7 +87,7 @@
             </div>
         </nav>
     
-        <header id="gtco-header" class="gtco-cover gtco-cover-sm" role="banner" 
+        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner" 
         style="background: url(images/food.jpg) fixed center; ">
             <div class="overlay"></div>
             <div class="gtco-container">
@@ -108,7 +106,7 @@
                 </div>
             </div>
         </header>
-        <div id="section1" class="gtco-section border-bottom" ng-show="section1Toggle">
+        <div id="section1" class="gtco-section border-bottom slideInRight" ng-show="section1Toggle">
             <div class="gtco-container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
@@ -217,7 +215,7 @@
             </div>
         </div>
 
-        <div id="section3" class="gtco-section border-bottom" ng-show="section3Toggle">
+        <div id="section3" class="gtco-section border-bottom slideInRight" ng-show="section3Toggle">
             <div class="gtco-container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
@@ -234,8 +232,6 @@
                             </figure>
                             <div class="fh5co-text">
                                 <h2>Bottom Floor</h2>
-                                <p>Offering subs, sandwiches, wraps, live music and more in Blacksburg since 1995.
-                                    Come in today!</p>
                             </div>
                         </a>
                     </div>
@@ -246,23 +242,199 @@
                             </figure>
                             <div class="fh5co-text">
                                 <h2>Top Floor</h2>
-                                <p>A venerable bi-level spot for beers, burgers &amp; pub grub, as well as sports on TV, billiards &amp; darts.</p>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6">
-                        <a href="" class="fh5co-project-item" ng-click="section3('bottom-nobar')">
+                        <a href="" class="fh5co-project-item">
                             <figure>
-                                <img src="images/hh_bottom_nobar.jpg" alt="Image" class="img-responsive">
+                                <label class="sr-only" for="message">Message</label>
+                                <textarea name="message" id="message" ng-model="requests" cols="30" rows="10" class="form-control" placeholder="What area would you like to reserve?"></textarea>
                             </figure>
                             <div class="fh5co-text">
-                                <h2>Bottom Floor without Bar</h2>
-                                <p>Get your favorite PK’s wings, pizza, subs, wraps, salads, pasta &amp; more for LUNCH, DINNER, and any time in between.</p>
+                                <h2 ng-click="section3('specific')">Other</h2>
                             </div>
                         </a>
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(3)">Back</a>
+            </div>
+        </div>
+
+        <div id="section4" class="gtco-section border-bottom slideInRight" ng-show="section4Toggle">
+           <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <h2>How Many People</h2>
+                        <p>Approximately how many people are we expecting?
+                        <div ng-show="part">
+                            Min: {{ rest_part_min_number }}, Max: {{ rest_part_max_number }}
+                        </div>
+                        <div ng-show="!part"> 
+                            Min: {{ rest_min_number }}, Max: {{ rest_max_number }}
+                        </div></p>
+                        <input type="number" id="num_ppl_box" class="form-control" style="width:30%; display:inline-block"
+                                placeholder="Number of People" ng-model="num_people">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <h2>Catering</h2>
+                        <p>Would you like to include catering?</p>
+                        <select ng-model="catering">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-default btn-sm" ng-click="back(4)">Back</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section4(num_people, catering)">Next</a>
+            </div>
+        </div>
+
+        <div id="section5" class="gtco-section border-bottom slideInRight" ng-show="section5Toggle">
+             <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <h2>Catering Options</h2>
+                        <br>
+                        <p>Appetizers</p>
+                        <div class="table-responsive">          
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <div ng-show="if($scope.restaurant_name == 'hh')">
+                                    <tbody ng-repeat="item in restaurant_info.hh.menu.appetizers.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="if($scope.restaurant_name == 'pk')">
+                                    <tbody ng-repeat="item in restaurant_info.pk.menu.appetizers.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="if($scope.restaurant_name == 'sycamore')">
+                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.appetizers.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                        <br>
+                        <p>Entrees</p>
+                        <div class="table-responsive">          
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <div ng-show="hh">
+                                    <tbody ng-repeat="item in restaurant_info.hh.menu.entrees.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="pk">
+                                    <tbody ng-repeat="item in restaurant_info.pk.menu.entrees.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="sycamore">
+                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.entrees.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                        <br>
+                        <p>Desserts</p>
+                        <div class="table-responsive">          
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="item in appetizers">
+                                    <tr>
+                                        <td><input type="number" style="width:15%"></input></td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.price }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <p>Drinks</p>
+                        <div class="table-responsive">          
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="item in appetizers">
+                                    <tr>
+                                        <td><input type="number" style="width:15%"></input></td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.price }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-default btn-sm" ng-click="back(5)">Back</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section5(options)">Next</a>
+            </div>
+        </div>
+
+        <div id="section6" class="gtco-section border-bottom slideInRight" style="height: 60%"ng-show="section6Toggle">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <h2>CALENDAR PAGE</h2>
+                        
+                    </div>
+                </div>
+                <a href="#" class="btn btn-default btn-sm" ng-click="back(6)">Back</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section5(day)">Next</a>
             </div>
         </div>
     </div>

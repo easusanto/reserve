@@ -5,7 +5,8 @@ var reservationSchema = new Schema({
     username: {type: String},
     restaurant_name:  {type: String, unique: true},
     section_of_venue: {type: String},   //part or all or NA
-    catering: {type: Boolean},          //true or false or NA
+    floor: {type: String},              //top or bottom
+    catering: {type: String},          //yes or no
     catering_options: {type: Schema.Types.Mixed},   //json format
     date: {type: Date},
     start_time: {type: String},
