@@ -31,9 +31,10 @@
     <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+
     <script src="/node_modules/angular-aria/angular-aria.js"></script> 
     <script src="/node_modules/angular-animate/angular-animate.js"></script> 
-
+    <script src="/node_modules/angular-material/angular-material.js"></script>
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -65,14 +66,30 @@
     <link rel="stylesheet" href="/css/calendar.css" />
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
+            <script src="bower_components/angular/angular.js"></script>
 
-    <script src="bower_components/angular/angular.js"></script>
+
+
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
     <script src="bower_components/fullcalendar/dist/gcal.js"></script>
     <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script src="js/controllers/CalendarCtrl.js"></script>
+
+    <style>
+            /* when hiding the thing */
+        .ng-hide-add         { 
+          -webkit-animation:0.5s slideInRight ease; 
+          animation:0.5s slideInRight ease; 
+        }
+
+        /* when showing the thing */
+        .ng-hide-remove      { 
+          -webkit-animation:0.5s slideOutLeft ease; 
+          animation:0.5s slideOutLeft ease; 
+        }
+    </style>
 </head>
 <body data-spy="scroll">
 

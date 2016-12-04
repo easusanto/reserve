@@ -31,11 +31,7 @@
     <!-- Angular -->
     <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 
-    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
-    <script src="/node_modules/angular/angular.js"></script> 
-    <script src="/node_modules/angular-aria/angular-aria.js"></script> 
-    <script src="/node_modules/angular-animate/angular-animate.js"></script> 
-    <script src="/node_modules/angular-material/angular-material.js"></script>
+    
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -56,10 +52,33 @@
     <!-- Magnific Popup -->
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/magnific-popup-options.js"></script>
+
+     <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/css/calendar.css" />
+
+    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+
+    <script src="/node_modules/angular/angular.js"></script> 
+    <script src="/node_modules/angular-aria/angular-aria.js"></script> 
+    <script src="/node_modules/angular-animate/angular-animate.js"></script> 
+    <script src="/node_modules/angular-material/angular-material.js"></script>
+
     <!-- Main -->
     <script src="js/main.js"></script>
     <script src="js/controllers/MainCtrl.js"></script>
+
+    <!-- Calendar files -->
+    
+
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
 </head>
+
+
 <body ng-app="myApp" ng-controller="MainController">  
     <div class="gtco-loader"></div>
     <div id="page">
@@ -289,7 +308,7 @@
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(4)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section4(num_people, catering)">Next</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section4(num_people, catering);loadData()">Next</a>
             </div>
         </div>
 
@@ -421,7 +440,7 @@
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(5)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section5(options)">Next</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section5(options);loadData()">Next</a>
             </div>
         </div>
 
@@ -430,14 +449,15 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
                         <h2>CALENDAR PAGE</h2>
+                        
 
-                        <!-- <section id="directives-calendar" ng-controller="CalendarController">
+                        <section id="directives-calendar">
                             <div class="well">
                                 <div class="row-fluid">
                                     <div class="span4">
 
                                         <div class="btn-group calTools">
-                                          <button class="btn" ng-click="initEvents()">
+                                          <button class="btn" ng-click="loadData()">
                                             Data
                                           </button>
                                           <button class="btn" ng-click="changeLang()">
@@ -483,11 +503,39 @@
                             </div>
                             
                         </section>
-                         -->
+                         
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(6)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section5(day)">Next</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6()">Next</a>
+            </div>
+        </div>
+        <div id="section7" class="gtco-section border-bottom slideInRight" ng-show="section7Toggle">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <h2>What time</h2>
+                        <p>What times would you like to reserve the space?
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <md-list-item class="md-3-line" ng-repeat="item in available_hours" ng-click="$scope.start = item">
+                      <div class="md-list-item-text" layout="column">
+                        <h3>{{item}}:00</h3>
+                      </div>
+                    </md-list-item>
+                </div>
+                <div class="row">
+                    <md-list-item class="md-3-line" ng-repeat="item in available_hours" ng-click="$scope.end = item">
+                      <div class="md-list-item-text" layout="column">
+                        <h3>{{item}}:00</h3>
+                      </div>
+                    </md-list-item>
+                </div>
+                <a href="#" class="btn btn-default btn-sm" ng-click="back(7)">Back</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6(start, end)">Next</a>
+
             </div>
         </div>
     </div>

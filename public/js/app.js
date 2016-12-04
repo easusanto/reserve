@@ -23,7 +23,7 @@ angular.module('BasicHttpAuthExample', [
         })
 
         .when('/user_reserve_restaurant', {
-            controller: 'HomeController',
+            controller: 'MainController',
             templateUrl: 'public/user_reserve_restaurant.html'
         })
 
