@@ -12,6 +12,7 @@ var reservationSchema = new Schema({
     start_time: {type: String},
     end_time: {type: String},
     number_of_people: {type: Number},
+    price: {type: Number},
     requests: {type: String},
 });
 

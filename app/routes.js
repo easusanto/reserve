@@ -93,7 +93,7 @@ module.exports = function(app, User, Reservation) {
                 return res.status(404).send();
             }
             res.reservation = reservation;
-            res.json({ message: 'success' });
+            res.json(reservation);
             return res.status(200).send();
         })
     });
@@ -108,6 +108,7 @@ module.exports = function(app, User, Reservation) {
         var start_time = req.body.start_time;
         var end_time = req.body.end_time;
         var number_of_people = req.body.number_of_people;
+        var price= {type: Number};
         var requests = req.body.requests;
 
         var newreservation = new Reservation();
