@@ -75,15 +75,6 @@ app.controller('CalendarController',
       callback(events);
     };
 
-    $scope.calEventsExt = {
-       color: '#f00',
-       textColor: 'yellow',
-       events: [
-          {type:'party',title: 'Lunch',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Lunch 2',start: new Date(y, m, d, 12, 0),end: new Date(y, m, d, 14, 0),allDay: false},
-          {type:'party',title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-        ]
-    };
     /* alert on eventClick */
     $scope.alertOnEventClick = function( date, jsEvent, view){
         $scope.alertMessage = (date.title + ' was clicked ');
@@ -109,15 +100,7 @@ app.controller('CalendarController',
         sources.push(source);
       }
     };
-    /* add custom event*/
-    $scope.addEvent = function() {
-      $scope.events.push({
-        title: 'Open Sesame',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        className: ['openSesame']
-      });
-    };
+
     /* remove event */
     $scope.remove = function(index) {
       $scope.events.splice(index,1);

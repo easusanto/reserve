@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    
+
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
     <!-- Icomoon Icon Fonts-->
@@ -31,7 +31,7 @@
     <!-- Angular -->
     <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
 
-    
+
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -59,9 +59,9 @@
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
 
-    <script src="/node_modules/angular/angular.js"></script> 
-    <script src="/node_modules/angular-aria/angular-aria.js"></script> 
-    <script src="/node_modules/angular-animate/angular-animate.js"></script> 
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
     <script src="/node_modules/angular-material/angular-material.js"></script>
 
     <!-- Main -->
@@ -69,7 +69,7 @@
     <script src="js/controllers/MainCtrl.js"></script>
 
     <!-- Calendar files -->
-    
+
 
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     <script src="bower_components/moment/moment.js"></script>
@@ -79,12 +79,12 @@
 </head>
 
 
-<body ng-app="myApp" ng-controller="MainController">  
+<body ng-app="myApp" ng-controller="MainController">
     <div class="gtco-loader"></div>
     <div id="page">
         <nav class="gtco-nav" role="navigation">
             <div class="gtco-container">
-                
+
                 <div class="row">
                     <div class="col-sm-4 col-xs-12">
                         <div id="gtco-logo"><a href="index.html">Reserve <em>.</em></a></div>
@@ -102,11 +102,11 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div>
         </nav>
-    
-        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner" 
+
+        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner"
         style="background: url(images/food.jpg) fixed center; ">
             <div class="overlay"></div>
             <div class="gtco-container">
@@ -116,11 +116,11 @@
 
                             <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
                                 <span class="intro-text-small">Create a Reservation</span>
-                                <h1>Restaurants for you</h1> 
+                                <h1>Restaurants for you</h1>
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <a href="" class="fh5co-project-item" ng-click="section1('pk')">
                             <figure>
@@ -175,8 +175,8 @@
             </div>
         </div>
 
-        <div id="section2" class="gtco-section border-bottom" 
-        style="background-image: url(images/whitebackground.jpg); 
+        <div id="section2" class="gtco-section border-bottom"
+        style="background-image: url(images/whitebackground.jpg);
         background-position: center;" ng-show="section2Toggle">
             <div class="overlay"></div>
             <div class="gtco-container">
@@ -289,7 +289,7 @@
                         <div ng-show="part">
                             Min: {{ rest_part_min_number }}, Max: {{ rest_part_max_number }}
                         </div>
-                        <div ng-show="!part"> 
+                        <div ng-show="!part">
                             Min: {{ rest_min_number }}, Max: {{ rest_max_number }}
                         </div></p>
                         <input type="number" id="num_ppl_box" class="form-control" style="width:30%; display:inline-block"
@@ -319,7 +319,7 @@
                         <h2>Catering Options</h2>
                         <br>
                         <p>Appetizers</p>
-                        <div class="table-responsive">          
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -359,7 +359,7 @@
                         </div>
                         <br>
                         <p>Entrees</p>
-                        <div class="table-responsive">          
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -399,7 +399,7 @@
                         </div>
                         <br>
                         <p>Desserts</p>
-                        <div class="table-responsive">          
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -419,7 +419,7 @@
                         </div>
                         <br>
                         <p>Drinks</p>
-                        <div class="table-responsive">          
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -449,39 +449,10 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
                         <h2>CALENDAR PAGE</h2>
-                        
 
                         <section id="directives-calendar">
                             <div class="well">
                                 <div class="row-fluid">
-                                    <div class="span4">
-
-                                        <div class="btn-group calTools">
-                                          <button class="btn" ng-click="loadData()">
-                                            Data
-                                          </button>
-                                          <button class="btn" ng-click="changeLang()">
-                                            {{changeTo}}
-                                          </button>
-                                          <button class="btn" ng-click="addRemoveEventSource(eventSources,eventSource)">
-                                            Toggle Source
-                                          </button>
-                                          <button type="button" class="btn btn-primary" ng-click="addEvent()">
-                                            Add Event
-                                          </button>
-                                        </div>
-
-                                        <ul class="unstyled">
-                                            <li ng-repeat="e in events">
-                                                <div class="alert alert-info">
-                                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
-                                                    <b> <input ng-model="e.title"></b>
-                                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                    </div>
 
                                     <div class="span8">
 
@@ -501,24 +472,72 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </section>
-                         
+
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                <h2>Choose a Time</h2>
+                                Start Time: <input type="time" ng-model="eventStartTime">
+                                End Time: <input type="time" ng-model="eventEndTime">
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(6)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6()">Next</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6(eventStartTime, eventEndTime)">Next</a>
             </div>
         </div>
         <div id="section7" class="gtco-section border-bottom slideInRight" ng-show="section7Toggle">
             <div class="gtco-container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                        <h2>What time</h2>
-                        <p>What times would you like to reserve the space?
+                        <h2>Restaurant Confirmation</h2>
+                        <p>Please review the information to make sure it is all correct.
                         </p>
                     </div>
                 </div>
+
+                <table class="table" style="background-color: white">
+                  <tbody>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Confirmation Number: </th>
+                      <td style="border-style:none"> Random Number </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Name: </th>
+                      <td style="border-style:none"> {{username}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Number Of People: </th>
+                      <td style="border-style:none"> {{number_of_people}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Date: </th>
+                      <td style="border-style:none"> {{date}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"style="float:right; border-style:none"> Time: </th>
+                      <td style="border-style:none"> {{start_time}} - {{end_time}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"style="float:right; border-style:none"> Location: </th>
+                      <td style="border-style:none"> {{restaurant_fullName}} ({{restaurant_location}})</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Catering: </th>
+                      <td style="border-style:none"> {{catering_options}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Total Price: </th>
+                      <td style="border-style:none"> Price </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
                 <div class="row">
                     <md-list-item class="md-3-line" ng-repeat="item in available_hours" ng-click="$scope.start = item">
                       <div class="md-list-item-text" layout="column">
@@ -534,7 +553,7 @@
                     </md-list-item>
                 </div>
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(7)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6(start, end)">Next</a>
+                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section6(start, end)">Submit To Restaurant</a>
 
             </div>
         </div>
@@ -543,7 +562,6 @@
     <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
     </div>
-    
+
 </body>
 </html>
-

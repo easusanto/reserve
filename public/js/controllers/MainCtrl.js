@@ -1,10 +1,12 @@
 var app = angular.module('myApp', ['ui.calendar', 'ui.bootstrap']);
 
-app.controller('MainController',  
+app.controller('MainController',
     ['$scope', '$rootScope', '$anchorScroll', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig',
     function ($scope, $rootScope, $anchorScroll, $location, $http, $timeout, $compile, uiCalendarConfig) {
-    $scope.username = "";
+    $scope.username = $rootScope.username;
     $scope.restaurant_name = "";
+    $scope.restaurant_fullName = "";
+    $scope.restaurant_location = "";
     $scope.section_of_venue = "";
     $scope.floor = "";
     $scope.catering = "";
@@ -159,46 +161,73 @@ app.controller('MainController',
         }
     };
 
-    $scope.get_restaurant_hours = function(){
-        var start_time = 0;
-        var end_time = 0;
-        var hours = [];
-        if(restaurant_name == 'hh'){
-            start_time = restaurant_info.hh.hours.start;
-            end_time = restaurant_info.hh.hours.end;
-        }
-        else if(restaurant_name == 'pk'){
-            start_time = restaurant_info.pk.hours.start;
-            end_time = restaurant_info.pk.hours.end;
-        }
-        else if(restaurant_name == 'sycamore'){
-            start_time = restaurant_info.sycamore.hours.start;
-            end_time = restaurant_info.sycamore.hours.end;
-        }
-        var i;
-        for(i=0; i < end_time - start_time; i++){
-            hours[i] = start_time + i;
-        }
-        return hours;
+    function getRestaurantFullNameAndLocation(restaurantShortName) {
+      var fullName;
+      var address;
+      switch(restaurantShortName) {
+        case "hh":
+          fullName = "Hokie House";
+          address = "322 N Main St, Blacksburg VA 24060";
+          break;
+        case "sycamore":
+          fullName = "Sycamore Deli";
+          address = "211 Draper Rd, Blacksburg VA 24060";
+          break;
+        case "pk":
+          fullName = "PK's Bar & Grill";
+          address = "432 N Main St, Blacksburg VA 24060";
+          break;
+        default:
+          fullName = "";
+          address = ""
+      }
+      $scope.restaurant_fullName = fullName;
+      $scope.restaurant_location = address;
     };
+
+    function parseDate(date){
+      var d = new Date(date);
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth() + 1; //Months are zero based
+      var curr_year = d.getFullYear();
+      return (curr_month + "/" + curr_date + "/" + curr_year);
+    }
+
+    function parseTime(time){
+      var hour = time.toTimeString().substring(0,2);
+      var minute = time.toTimeString().substring(3, 5);
+      console.log(hour, minute);
+      var subscript = "";
+      if(hour > 12){
+          subscript = "pm";
+          hour = Number(hour) - 12;
+          hour = hour.toString();
+      }
+      else {
+          subscript = "am";
+      }
+      return hour + ":" + minute + " " + subscript;
+    }
+
     $scope.section1 = function(rest_name) {
-        restaurant_name = rest_name;
+        $scope.restaurant_name = rest_name;
         $scope.section1Toggle = false;
         $scope.section2Toggle = true;
+        getRestaurantFullNameAndLocation($scope.restaurant_name);
 
-        if(restaurant_name == 'hh'){
+        if($scope.restaurant_name == 'hh'){
             $scope.rest_min_number = 100;
             $scope.rest_max_number = 500;
             $scope.rest_part_min_number = 30;
             $scope.rest_part_max_number = 250;
         }
-        else if(restaurant_name == 'sycamore'){
+        else if($scope.restaurant_name == 'sycamore'){
             $scope.rest_min_number = 50;
             $scope.rest_max_number = 150;
             $scope.rest_part_min_number = 10;
             $scope.rest_part_max_number = 20;
         }
-        else if(restaurant_name == 'pk'){
+        else if($scope.restaurant_name == 'pk'){
             $scope.rest_min_number = 50;
             $scope.rest_max_number = 200;
             $scope.rest_part_min_number = 20;
@@ -206,14 +235,13 @@ app.controller('MainController',
         }
     };
     $scope.section2 = function(section) {
-        section_of_venue = section;
-
-        if(section_of_venue == 'part'){
+        $scope.section_of_venue = section;
+        if($scope.section_of_venue == 'part'){
             $scope.section2Toggle = false;
             $scope.section3Toggle = true;
             $scope.part = true;
         }
-        else if (section_of_venue == 'all'){
+        else if ($scope.section_of_venue == 'all'){
             $scope.section2Toggle = false;
             $scope.section4Toggle = true;
             $scope.part = false;
@@ -225,25 +253,23 @@ app.controller('MainController',
         }
     };
     $scope.section3 = function(part) {
-        floor = part;
+        $scope.floor = part;
         $scope.section3Toggle = false;
         $scope.section4Toggle = true;
     };
     $scope.section4 = function(num_of_people, catering) {
-        number_of_people = num_of_people;
-        catering = catering
-        $scope.restaurant_name_is(restaurant_name);
-        console.log(number_of_people);
-        console.log(section_of_venue);
+        $scope.number_of_people = num_of_people;
+        $scope.catering = catering
+        $scope.restaurant_name_is($scope.restaurant_name);
 
-        if(section_of_venue == 'all'){
-            if(number_of_people >=  $scope.rest_min_number && 
-                number_of_people <= $scope.rest_max_number){
-                if(catering == "yes"){
+        if($scope.section_of_venue == 'all'){
+            if($scope.number_of_people >=  $scope.rest_min_number &&
+                $scope.number_of_people <= $scope.rest_max_number){
+                if($scope.catering == "yes"){
                     $scope.section4Toggle = false;
                     $scope.section5Toggle = true;
                 }
-                else if (catering == "no"){
+                else if ($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
                 }
@@ -255,16 +281,16 @@ app.controller('MainController',
                 alert('Please fix number of people to be inside min/max values.');
             }
         }
-        else if(section_of_venue == 'part'){
+        else if($scope.section_of_venue == 'part'){
 
-            if(number_of_people >=  $scope.rest_part_min_number && 
-                number_of_people <= $scope.rest_part_max_number){
+            if($scope.number_of_people >=  $scope.rest_part_min_number &&
+                $scope.number_of_people <= $scope.rest_part_max_number){
 
-                if(catering == "yes"){
+                if($scope.catering == "yes"){
                     $scope.section4Toggle = false;
                     $scope.section5Toggle = true;
                 }
-                else if(catering == "no"){
+                else if($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
                 }
@@ -275,19 +301,21 @@ app.controller('MainController',
             else {
                 alert('Please fix number of people to be inside min/max values.');
             }
-        }  
+        }
     };
     $scope.section5 = function(choices) {
-        catering_options = choices;
+        $scope.catering_options = choices;
         $scope.section5Toggle = false;
         $scope.section6Toggle = true;
     };
-    $scope.section6 = function(date) {
-        date = date;
+
+    $scope.section6 = function(startTime, endTime) {
+        $scope.start_time = parseTime(startTime);
+        $scope.end_time = parseTime(endTime);
+        console.log($scope.start_time);
         $scope.section6Toggle = false;
         $scope.section7Toggle = true;
 
-        $scope.available_hours = $scope.get_restaurant_hours();
         $scope.loadData();
     };
     $scope.section7 = function(start, end) {
@@ -389,7 +417,7 @@ app.controller('MainController',
                 data: JSON.stringify(data1),
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here 
+                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
                 console.log("sign up successful.");
             }).error(function (data, status, headers, config) {
                 console.log(data);
@@ -402,11 +430,13 @@ app.controller('MainController',
     var m = date.getMonth();
     var y = date.getFullYear();
     var calendarEventsToShow = [];
+    var thisDate = null;
 
     $scope.loadData = function() {
       var events = {
         restaurant_name:  "hh",
       };
+
       $http({
         url: "/get_restaurant_reservations",
         method: "POST",
@@ -414,19 +444,17 @@ app.controller('MainController',
         headers: {'Content-Type': 'application/json'}
       }).success(function (data, status, headers, config) {
           if(data[0]){
-              console.log(data);
               for (var i = 0; i < data.length; i++) {
-                console.log(data[i]);
                 var startDate = data[i].date.substring(0,11)+data[i].start_time;
                 var endDate = data[i].date.substring(0,11)+data[i].end_time;
                 var calendarEvent = {
                   title: data[i].username,
                   start: startDate,
-                  end: endDate
+                  end: endDate,
+                  stick: true
                 }
-                calendarEventsToShow.push(calendarEvent);
+                calendarEventsToShow[i] = (calendarEvent);
               }
-              console.log(calendarEventsToShow);
           }
           else{
               alert("error.");
@@ -531,6 +559,7 @@ app.controller('MainController',
         $compile(element)($scope);
     };
     /* config object */
+
     $scope.uiConfig = {
       calendar:{
         height: 450,
@@ -545,21 +574,19 @@ app.controller('MainController',
         eventResize: $scope.alertOnResize,
         eventRender: $scope.eventRender,
         dayClick: function( date, jsEvent, view ) {
-          // var events = myCalendar.fullCalendar('clientEvents', function(event) {
-          //   return event.start.isSame(date) || event.end.isSame(date) || date.isBetween(event.start, event.end); // Will return all events starting/ending on this date or overlapping this date
-          // });
-          alert('Clicked on: ' + date.format());
-
-          alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-          alert('Current view: ' + view.name);
-
-          // change the day's background color just for fun
-          $(this).css('background-color', 'red');
+          $scope.date = parseDate(date);
+          console.log($scope.date);
+          // change the day's background color to show selection
+          if(thisDate !== null) {
+            thisDate.css('background-color', '#f5f5f5');
+          }
+          $(this).css('background-color', 'green');
+          thisDate = $(this);
         }
 
       }
     };
+
 
     $scope.changeLang = function() {
       if($scope.changeTo === 'Hungarian'){
