@@ -342,71 +342,98 @@ app.controller('MainController',
     };
 
     $scope.section6 = function(startTime, endTime) {
-        $scope.start_time = parseTime(startTime);
-        $scope.end_time = parseTime(endTime);
-        console.log($scope.start_time);
+      //Dates to be sent to the Backend
+        $scope.start_time = startTime.getHours().toString() + ":"  + startTime.getMinutes().toString() + ":00";
+        $scope.end_time = endTime.getHours().toString() + ":"  + endTime.getMinutes().toString() + ":00";
+      //Dates for UI
+        $scope.reservation_time = parseTime(startTime) + " - " + parseTime(endTime);
         $scope.section6Toggle = false;
         $scope.section7Toggle = true;
 
         $scope.loadData();
     };
     $scope.section7 = function() {
-        $window.location.href = '/user_my_reservations.html';
+      var reservationData = {
+          username: $scope.username? $scope.username : "VSA",
+          restaurant_name: $scope.restaurant_name,
+          section_of_venue: $scope.section_of_venue,
+          floor: $scope.floor,
+          catering: $scope.catering,
+          catering_options: $scope.catering_options ? $scope.catering_options : "N/A",
+          date: $scope.date,
+          start_time: $scope.start_time,
+          end_time: $scope.end_time,
+          number_of_people: $scope.number_of_people,
+          requests: $scope.requests
+      };
+      console.log(reservationData);
+      $scope.send_reservation(reservationData);
     };
     $scope.back = function(sectionNumber) {
-        //going back from "Choose your type of reservation" page
-        if(sectionNumber == 2){
-            $scope.restaurant_name = "";
-            $scope.section1Toggle = true;
-            $scope.section2Toggle = false;
-        }
-        //going back from "Which Part of Venue" page
-        else if(sectionNumber == 3){
-            $scope.section_of_venue = "";
-            $scope.section2Toggle = true;
-            $scope.section3Toggle = false;
-        }
-        //going back from "Choose your type of reservation" page
-        else if(sectionNumber == 4){
-            if($scope.section_of_venue == 'part'){
-                $scope.floor = "";
-                $scope.section3Toggle = true;
-                $scope.section4Toggle = false;
-            }
-            else if($scope.section_of_venue == 'all'){
-                $scope.section_of_venue = "";
-                $scope.section2Toggle = true;
-                $scope.section4Toggle = false;
-            }
-        }
-        //going back from "how many people" & "catering" page
-        else if(sectionNumber == 5){
-            $scope.number_of_people = "";
-            document.getElementById("num_ppl_box").value = ""
-            $scope.catering = "";
-            $scope.section4Toggle = true;
-            $scope.section5Toggle = false;
-        }
-        //going back from "catering options page
-        else if(sectionNumber == 6){
-            if($scope.catering == 'yes'){
-                $scope.catering_options = "";
-                $scope.section5Toggle = true;
-                $scope.section6Toggle = false;
-            }
-            else {
+       //going back from "Choose your type of reservation" page
+       if(sectionNumber == 2){
+           $scope.restaurant_name = "";
+           $scope.section1Toggle = true;
+           $scope.section2Toggle = false;
+       }
+       //going back from "Which Part of Venue" page
+       else if(sectionNumber == 3){
+           $scope.section_of_venue = "";
+           $scope.section2Toggle = true;
+           $scope.section3Toggle = false;
+       }
+       //going back from "how many people" & "catering" page
+       else if(sectionNumber == 4){
+           if($scope.section_of_venue == 'part'){
+               $scope.floor = "";
+               $scope.section3Toggle = true;
+               $scope.section4Toggle = false;
+           }
+           else if($scope.section_of_venue == 'all'){
+               $scope.section_of_venue = "";
+               $scope.section2Toggle = true;
+               $scope.section4Toggle = false;
+           }
+       }
+       //going back from "catering options" page
+       else if(sectionNumber == 5){
+           if($scope.section_of_venue == "catering"){
+               $scope.catering = "";
+               $scope.section2Toggle = true;
+               $scope.section5Toggle = false;
+           }
+           else{
                 $scope.number_of_people = "";
-                document.getElementById("num_ppl_box").value = ""
-                $scope.catering = "";
-                $scope.section4Toggle = true;
-                $scope.section6Toggle = false;
-            }
-        }
-        else if(sectionNumber == 7) {
-          $scope.section6Toggle = true;
-          $scope.section7Toggle = false;
-        }
-    };
+               document.getElementById("num_ppl_box").value = ""
+               $scope.catering = "";
+               $scope.section4Toggle = true;
+               $scope.section5Toggle = false;
+           }
+
+       }
+       //going back from "calendar" page
+       else if(sectionNumber == 6){
+
+
+               if($scope.catering == 'yes' || $scope.section_of_venue == 'catering'){
+                   $scope.catering_options = "";
+                   $scope.section5Toggle = true;
+                   $scope.section6Toggle = false;
+               }
+               else {
+                   $scope.number_of_people = "";
+                   document.getElementById("num_ppl_box").value = ""
+                   $scope.catering = "";
+                   $scope.section4Toggle = true;
+                   $scope.section6Toggle = false;
+               }
+
+       }
+       else if(sectionNumber == 7) {
+         $scope.section6Toggle = true;
+         $scope.section7Toggle = false;
+       }
+   };
     $scope.restaurant_name_is = function(restaurant_name){
         if(restaurant_name == 'hh'){
             $scope.hh = true;
@@ -424,7 +451,7 @@ app.controller('MainController',
             $scope.pk = false;
         }
     };
-    $scope.restaurant_data = function(reservation) {
+    $scope.send_reservation = function(reservation) {
         var data1 = {
             username: reservation.username,
             restaurant_name: reservation.restaurant_name,
@@ -438,16 +465,18 @@ app.controller('MainController',
             number_of_people: reservation.number_of_people,
             requests: reservation.requests
         };
-
          $http({
                 url: '/send_user_reservations',
                 method: "POST",
                 data: JSON.stringify(data1),
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
-                console.log("sign up successful.");
+                console.log("Reservation Sent");
+
+                //MOVE TO NEXT PAGE
+                //$window.location.href = '/user_my_reservations.html';
             }).error(function (data, status, headers, config) {
+                console.log("WE SEEM TO HAVE AN ERROR");
                 console.log(data);
             });
     };
@@ -485,7 +514,7 @@ app.controller('MainController',
               }
           }
           else{
-              alert("error.");
+            //NOTHING IS IN DATABASE
               console.log(data.message);
           }
       }).error(function (data, status, headers, config) {
@@ -493,8 +522,6 @@ app.controller('MainController',
       });
     };
 
-    $scope.changeTo = 'Hungarian';
-    /* event source that pulls from google.com */
     $scope.eventSource = {
             url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
             className: 'gcal-event',           // an option!
@@ -505,14 +532,7 @@ app.controller('MainController',
     // event source that contains custom events on the scope
     //----------------------------------
     $scope.events = calendarEventsToShow;
-    //   {title: 'All Day Event',start: new Date(y, m, 1)},
-    //   {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-    //   {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-    //   {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-    //   {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-    //   {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-    // ];
-    /* event source that calls a function on every view switch */
+
     $scope.eventsF = function (start, end, timezone, callback) {
       var s = new Date(start).getTime() / 1000;
       var e = new Date(end).getTime() / 1000;

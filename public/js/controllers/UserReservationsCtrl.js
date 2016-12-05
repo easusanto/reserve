@@ -80,4 +80,9 @@ app.controller('UserReservationsController',
             var curr_year = d.getFullYear();
             return (curr_month + "/" + curr_date + "/" + curr_year);
         }
+
+        var init = function() {
+          $scope.getReservations();
+        }
+        init();
     }]);
