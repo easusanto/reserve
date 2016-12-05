@@ -14,7 +14,7 @@ module.exports = function(app, User, Reservation) {
                 return res.status(404).send();
             }
             res.user = user;
-            res.json(user, {message: 'success'});
+            res.json(user);
             return res.status(200).send();
         })
     });
