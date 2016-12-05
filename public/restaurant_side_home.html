@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/icomoon.css">
+    <!-- Themify Icons-->
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Angular -->
+    <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="js/jquery.countTo.js"></script>
+    <!-- Magnific Popup -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/magnific-popup-options.js"></script>
+
+     <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/css/calendar.css" />
+
+    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
+    <script src="/node_modules/angular-material/angular-material.js"></script>
+
+    <!-- Main -->
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/controllers/RestaurantMainCtrl.js"></script>
+    <script src="js/services/SharedProperties.js"></script>
+
+
+    <!-- Calendar files -->
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+</head>
+
+
+<body ng-app="myApp" ng-controller="RestaurantMainController">
+    <div class="gtco-loader"></div>
+    <div id="page">
+        <nav class="gtco-nav" role="navigation">
+            <div class="gtco-container">
+
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <div id="gtco-logo"><a href="login.html">Reserve <em>.</em></a></div>
+                    </div>
+                    <div class="col-xs-8 text-right menu-1">
+                        <ul>
+                            <li class="active"><a href="restaurant_side_home.html">Requests</a></li>
+                            <li ><a href="restaurant_side_calendar.html">Calendar</a></li>
+                            <li class="has-dropdown"><a href="#"><span>Hello, {{ $rootScope.user.username }}</span></a>
+                                <ul class="dropdown">
+                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner"
+        style="background: url(images/food3.jpg) fixed center; ">
+            <div class="overlay"></div>
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-0 text-left">
+                        <div class="row row-mt-15em">
+
+                            <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+                                <span class="intro-text-small">Approve or Deny some Requests</span>
+                                <h1>Reservation Requests</h1>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="section1" class="gtco-section border-bottom slideInRight" ng-show="true">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                        <button ng-click="click()">click </button>
+                        <button ng-click="getProperty()">getProperty() </button>
+
+                        <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Approved</th>
+                            <th>Location</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th># People</th>
+                            <th>Catering</th>
+                            <th>Price</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="item in reservations">
+                            <td><span class="icon" ng-show="true"><i class="ti-check"></i></span></td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.date}}</td>
+                            <td>{{item.start_time}} to {{item.end_time}}</td>
+                            <td>{{item.numPeople}}</td>
+                            <td>{{item.catering}}</td>
+                            <td>{{item.price}}</td>
+                            <td><a href="">Edit</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+</body>
+</html>

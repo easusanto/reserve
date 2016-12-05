@@ -21,6 +21,11 @@ angular.module('myApp', ['ngRoute', 'ui.calendar'])
             templateUrl: 'public/user_my_reservations.html'
         })
 
+        .when('/restaurant_side_home', {
+            controller: 'RestaurantMainController',
+            templateUrl: 'public/restaurant_side_home.html'
+        })
+
 
         .when('/calendar', {
             controller: 'CalendarController',

@@ -40,55 +40,56 @@ app.controller('MainController',
 
     $scope.available_hours = [];
 
-    $scope.restaurant_info =
-    {
+    $scope.restaurant_info ={
         "hh": {
             "id": "hh",
             "name": "Hokie House",
-            "hours": {
-                "start":"10",
-                "end": "24"
-            },
             "menu": {
                 "appetizers": {
                     "name": "appetizers",
                     "items": [{
-                        "name": "temp",
-                        "price": "temp"
+                        "name": "Wings",
+                        "price": "7.50"
                     }, {
-                        "name": "temp",
-                        "price": "temp"
+                        "name": "Bacon Cheese Fries",
+                        "price": "6.50"
                     }, {
-                        "name": "temp",
-                        "price": "temp"
+                        "name": "Nachos",
+                        "price": "6.00"
                     }]
                 },
                 "entrees": {
                     "name": "entrees",
                     "items": [{
-                        "name": "",
-                        "price": ""
+                        "name": "Hokie Club",
+                        "price": "7.95"
                     }, {
-                        "name": "temp",
-                        "price": "temp"
+                        "name": "Hokie Burger",
+                        "price": "7.50"
                     }, {
-                        "name": "temp",
-                        "price": "temp"
+                        "name": "House Salad",
+                        "price": "6.50"
                     }]
                 },
                 "desserts": {
                     "name": "desserts",
                     "items": {
-                        "name": "",
-                        "price": ""
+                        "name": "Ice Cream",
+                        "price": "3.50"
                     }
                 },
                 "drinks": {
                     "name": "drinks",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "Pepsi",
+                        "price": "1.79"
+                    }, {
+                        "name": "Water",
+                        "price": "0.50"
+                    }, {
+                        "name": "Ice Tea",
+                        "price": "1.79"
+                    }]
                 }
             }
         },
@@ -98,31 +99,49 @@ app.controller('MainController',
             "menu": {
                 "appetizers": {
                     "name": "appetizers",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "Wings",
+                        "price": "8.99"
+                    }, {
+                        "name": "Loaded Cheese Fries",
+                        "price": "8.99"
+                    }, {
+                        "name": "Nachos Grande",
+                        "price": "7.99"
+                    }]
                 },
                 "entrees": {
                     "name": "entrees",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "Philly Cheesesteak",
+                        "price": "7.99"
+                    }, {
+                        "name": "Chicken Breast",
+                        "price": "8.99"
+                    }, {
+                        "name": "Pasta Alfredo",
+                        "price": "8.59"
+                    }]
                 },
                 "desserts": {
                     "name": "desserts",
                     "items": {
-                        "name": "",
-                        "price": ""
+                        "name": "Brownie Sundae",
+                        "price": "3.99"
                     }
                 },
                 "drinks": {
                     "name": "drinks",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "b",
+                        "price": "1.80"
+                    }, {
+                        "name": "b",
+                        "price": "0.50"
+                    }, {
+                        "name": "b Tea",
+                        "price": "1.80"
+                    }]
                 }
             }
         },
@@ -133,34 +152,46 @@ app.controller('MainController',
                 "appetizers": {
                     "name": "appetizers",
                     "items": {
-                        "name": "",
-                        "price": ""
+                        "name": "Peewee",
+                        "price": "4.25"
                     }
                 },
                 "entrees": {
                     "name": "entrees",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "Burger",
+                        "price": "7.75"
+                    }, {
+                        "name": "Hotdog",
+                        "price": "4.49"
+                    }, {
+                        "name": "Sub",
+                        "price": "7.49"
+                    }]
                 },
                 "desserts": {
                     "name": "desserts",
                     "items": {
-                        "name": "",
-                        "price": ""
+                        "name": "Ice Cream Sandwich",
+                        "price": "2.50"
                     }
                 },
                 "drinks": {
                     "name": "drinks",
-                    "items": {
-                        "name": "",
-                        "price": ""
-                    }
+                    "items": [{
+                        "name": "a",
+                        "price": "1.75"
+                    }, {
+                        "name": "a",
+                        "price": "0.25"
+                    }, {
+                        "name": "a Tea",
+                        "price": "1.65"
+                    }]
                 }
             }
         }
-    };
+ };
 
     function getRestaurantFullNameAndLocation(restaurantShortName) {
       var fullName;
