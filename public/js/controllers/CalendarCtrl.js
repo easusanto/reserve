@@ -1,5 +1,4 @@
-var app = angular.module('myApp', ['ui.calendar', 'ui.bootstrap']);
-
+var app = angular.module('myApp');
 
 app.controller('CalendarController',
     ['$scope', '$rootScope', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig',

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    
+
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
     <!-- Icomoon Icon Fonts-->
@@ -34,7 +34,6 @@
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
 
-
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- jQuery Easing -->
@@ -51,22 +50,23 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/magnific-popup-options.js"></script>
 
-    <link rel="icon" href="favicon.ico" />
+     <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/css/calendar.css" />
 
     <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
-
-    <script src="/node_modules/angular/angular.js"></script> 
-    <script src="/node_modules/angular-aria/angular-aria.js"></script> 
-    <script src="/node_modules/angular-animate/angular-animate.js"></script> 
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
     <script src="/node_modules/angular-material/angular-material.js"></script>
 
     <!-- Main -->
+    <script src="js/app.js"></script>
     <script src="js/main.js"></script>
     <script src="js/controllers/UserReservationsCtrl.js"></script>
 
     <!-- Calendar files -->
-    
-
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
@@ -75,12 +75,12 @@
 </head>
 
 
-<body ng-app="myApp" ng-controller="UserReservationsController">  
+<body ng-app="myApp" ng-controller="UserReservationsController">
     <div class="gtco-loader"></div>
     <div id="page">
         <nav class="gtco-nav" role="navigation">
             <div class="gtco-container">
-                
+
                 <div class="row">
                     <div class="col-sm-4 col-xs-12">
                         <div id="gtco-logo"><a href="login.html">Reserve <em>.</em></a></div>
@@ -98,11 +98,11 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div>
         </nav>
-    
-        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner" 
+
+        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner"
         style="background: url(images/food3.jpg) fixed center; ">
             <div class="overlay"></div>
             <div class="gtco-container">
@@ -112,11 +112,11 @@
 
                             <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
                                 <span class="intro-text-small">View your existing reservations</span>
-                                <h1>Existing Reservations</h1> 
+                                <h1>Existing Reservations</h1>
                             </div>
-                            
+
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -154,13 +154,12 @@
                       </table>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
     </div>
-    
+
 </body>
 </html>
-

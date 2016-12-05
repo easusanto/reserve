@@ -1,9 +1,10 @@
-var app = angular.module('myApp', ['ui.calendar', 'ui.bootstrap']);
+var app = angular.module('myApp');
 
 app.controller('MainController',
-    ['$scope', '$rootScope', '$anchorScroll', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig',
-    function ($scope, $rootScope, $anchorScroll, $location, $http, $timeout, $compile, uiCalendarConfig) {
+    ['$scope', '$rootScope', '$anchorScroll', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig', '$window', 'appService',
+    function ($scope, $rootScope, $anchorScroll, $location, $http, $timeout, $compile, uiCalendarConfig, $window, appService) {
     $scope.username = $rootScope.username;
+    console.log($scope.username);
     $scope.restaurant_name = "";
     $scope.restaurant_fullName = "";
     $scope.restaurant_location = "";
@@ -318,16 +319,8 @@ app.controller('MainController',
 
         $scope.loadData();
     };
-    $scope.section7 = function(start, end) {
-        if(end > start){
-            $scope.start_time = start;
-            $scope.end_time = end;
-            $scope.section6Toggle = false;
-            $scope.section7Toggle = true;
-        }
-        else{
-            alert("Please select valid times.");
-        }
+    $scope.section7 = function() {
+        $window.location.href = '/user_my_reservations.html';
     };
     $scope.back = function(sectionNumber) {
         //going back from "Choose your type of reservation" page
@@ -344,12 +337,12 @@ app.controller('MainController',
         }
         //going back from "Choose your type of reservation" page
         else if(sectionNumber == 4){
-            if(section_of_venue == 'part'){
+            if($scope.section_of_venue == 'part'){
                 $scope.floor = "";
                 $scope.section3Toggle = true;
                 $scope.section4Toggle = false;
             }
-            else if(section_of_venue == 'all'){
+            else if($scope.section_of_venue == 'all'){
                 $scope.section_of_venue = "";
                 $scope.section2Toggle = true;
                 $scope.section4Toggle = false;
@@ -377,6 +370,10 @@ app.controller('MainController',
                 $scope.section4Toggle = true;
                 $scope.section6Toggle = false;
             }
+        }
+        else if(sectionNumber == 7) {
+          $scope.section6Toggle = true;
+          $scope.section7Toggle = false;
         }
     };
     $scope.restaurant_name_is = function(restaurant_name){

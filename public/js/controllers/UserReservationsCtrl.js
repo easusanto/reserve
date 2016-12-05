@@ -1,12 +1,8 @@
-
-var app = angular.module('myApp', []);
-
+var app = angular.module('myApp');
 
 app.controller('UserReservationsController',
     ['$scope', '$rootScope', '$location', '$http',
     function ($scope, $rootScope, $location, $http) {
-        
-
 
         $scope.getReservations = function () {
             var data1 = {
@@ -37,7 +33,7 @@ app.controller('UserReservationsController',
                     end_time: parseTime(data[i].end_time),
                     numPeople: data[i].number_of_people,
                     catering: data[i].catering,
-                    price: data[i].price   
+                    price: data[i].price
                 }
                 allReservations[i] = reservation;
             }

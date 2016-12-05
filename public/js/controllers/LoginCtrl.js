@@ -1,10 +1,10 @@
-var app = angular.module('myApp', []);
-
+var app = angular.module('myApp');
 
 app.controller('LoginController',
-    ['$scope', '$rootScope', '$location', '$http',
-    function ($scope, $rootScope, $location, $http) {
+    ['$scope', '$rootScope', '$location', '$http', '$window', 'appService',
+    function ($scope, $rootScope, $location, $http, $window, appService) {
          $scope.login = function (user) {
+           console.log("LOGGIN IN ");
             var data1 = {
                 username: user.username,
                 password: user.password
@@ -18,8 +18,10 @@ app.controller('LoginController',
             }).success(function (data, status, headers, config) {
                 if(data.message==="success"){
                     changeLocation('/user_reserve_restaurant.html', true);
-                    $rootScope.username = user.username;
-                    console.log(data.message);
+                    $rootScope.username = data1.username
+                    console.log($rootScope.username);
+                    //appService.setUserName(data1.username);
+                    //console.log(appService.getUserName());
                 }
                 else{
                     alert("Incorrect username/password.");
@@ -31,6 +33,8 @@ app.controller('LoginController',
         };
 
         $scope.signup_restaurant = function(user) {
+          if (user.password === user.password2) {
+            console.log("WE MATCH");
 
             var data1 = {
                 username: user.username,
@@ -46,13 +50,18 @@ app.controller('LoginController',
             }).success(function (data, status, headers, config) {
                 $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
                 console.log("sign up successful.");
+                $window.location.reload();
+                alert ("Congrats On Signing Up. You Can Now Sign On Using Your Restaurant Account.");
             }).error(function (data, status, headers, config) {
                 console.log(data);
             });
+          } else {
+            alert("Your password does not match");
+          }
         };
 
         $scope.signup_student = function(user) {
-
+          if (user.password === user.password2) {
             var data1 = {
                 username: user.username,
                 password: user.password,
@@ -66,10 +75,15 @@ app.controller('LoginController',
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 $scope.user = data.user; // assign  $scope.persons here as promise is resolved here
+                $window.location.reload();
+                alert ("Congrats On Signing Up. You Can Now Sign On Using Your Student Account.");
                 console.log("sign up successful.");
             }).error(function (data, status, headers, config) {
                 console.log(data);
             });
+          } else {
+            alert ("Your Password Does Not Match.");
+          }
         };
 
         var changeLocation = function(url, forceReload) {
