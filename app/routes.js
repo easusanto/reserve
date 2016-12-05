@@ -123,6 +123,7 @@ module.exports = function(app, User, Reservation) {
         newreservation.number_of_people = number_of_people;
         newreservation.requests = requests;
 
+        console.log("THIS IS MY RESERVATION: ", newreservation);
         newreservation.save(function(err, savedReservation){
             if(err){
                 console.log(err);
