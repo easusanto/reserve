@@ -38,10 +38,6 @@ app.controller('CalendarController',
               }
               console.log(calendarEventsToShow);
           }
-          else{
-              alert("Incorrect username/password.");
-              console.log(data.message);
-          }
       }).error(function (data, status, headers, config) {
           console.log("error: ", data);
       });

@@ -27,10 +27,18 @@ angular.module('BasicHttpAuthExample', [
             templateUrl: 'public/user_reserve_restaurant.html'
         })
 
+        .when('/user_my_reservations', {
+            controller: 'UserReservationsController',
+            templateUrl: 'public/user_my_reservations.html'
+        })
+
+
         .when('/calendar', {
             controller: 'CalendarController',
             templateUrl: 'public/calendar.html'
         })
+
+
 
         .otherwise({ redirectTo: '/' });
 }])
