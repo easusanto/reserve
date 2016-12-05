@@ -1,8 +1,8 @@
 var app = angular.module('myApp');
 
 app.controller('LoginController',
-    ['$scope', '$rootScope', '$location', '$http', '$window', 'appService',
-    function ($scope, $rootScope, $location, $http, $window, appService) {
+    ['$scope', '$rootScope', '$location', '$http', '$window', 'appService', 'sharedProperties',
+    function ($scope, $rootScope, $location, $http, $window, appService, sharedProperties) {
          $scope.login = function (user) {
            console.log("LOGGIN IN ");
             var data1 = {
@@ -16,13 +16,17 @@ app.controller('LoginController',
                 data: JSON.stringify(data1),
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                if(data.message==="success"){
-                    changeLocation('/user_reserve_restaurant.html', true);
-                    $rootScope.username = data1.username
-                    console.log($rootScope.username);
-                    //appService.setUserName(data1.username);
-                    //console.log(appService.getUserName());
-                }
+                if(status === 200){
+                    console.log(data);
+                    sharedProperties.setUserName(data.username);
+                    sharedProperties.setTypeOfAccount(data.account_type);
+                    if(data.account_type == 'student'){
+                        changeLocation('/user_reserve_restaurant.html', true);
+                    }
+                    else if(data.account_type == 'restaurant'){
+                        changeLocation('/restaurant_side_home.html', true);
+                    }
+                }  
                 else{
                     alert("Incorrect username/password.");
                     console.log(data.message);

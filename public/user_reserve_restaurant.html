@@ -405,13 +405,33 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <tbody ng-repeat="item in appetizers">
-                                    <tr>
-                                        <td><input type="number" style="width:15%"></input></td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.price }}</td>
-                                    </tr>
-                                </tbody>
+                                <div ng-show="hh">
+                                    <tbody ng-repeat="item in restaurant_info.hh.menu.desserts.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="pk">
+                                    <tbody ng-repeat="item in restaurant_info.pk.menu.desserts.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="sycamore">
+                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.desserts.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
                             </table>
                         </div>
                         <br>
@@ -425,13 +445,33 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <tbody ng-repeat="item in appetizers">
-                                    <tr>
-                                        <td><input type="number" style="width:15%"></input></td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.price }}</td>
-                                    </tr>
-                                </tbody>
+                                <div ng-show="hh">
+                                    <tbody ng-repeat="item in restaurant_info.hh.menu.drinks.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="pk">
+                                    <tbody ng-repeat="item in restaurant_info.pk.menu.drinks.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                                <div ng-show="sycamore">
+                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.drinks.items">
+                                        <tr>
+                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </div>
                             </table>
                         </div>
                     </div>
