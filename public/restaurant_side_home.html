@@ -195,11 +195,15 @@
                     </tr>
                     <tr>
                       <th scope="row" style="float:right; border-style:none"> Catering: </th>
-                      <td style="border-style:none"> {{ catering_options }} </td>
+                      <td style="border-style:none"> {{ single_reservation.catering}} </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="float:right; border-style:none"> Catering Options: </th>
+                      <td style="border-style:none"> {{ single_reservation.catering_options}} </td>
                     </tr>
                     <tr>
                       <th scope="row" style="float:right; border-style:none"> Total Price: </th>
-                      <td style="border-style:none"> ${{ catering_options }} </td>
+                      <td style="border-style:none"> ${{ single_reservation.price }} </td>
                     </tr>
                   </tbody>
                 </table>
