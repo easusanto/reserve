@@ -6,7 +6,7 @@ app.controller('UserReservationsController',
 
         $scope.getReservations = function () {
             var data1 = {
-                username: 'vsa',
+                username: 'VSA',
             };
 
             $http({

@@ -65,7 +65,7 @@
     <script src="js/app.js"></script>
     <script src="js/main.js"></script>
     <script src="js/controllers/MainCtrl.js"></script>
-    <script src="js/services/AppService.js"></script>
+    <script src="js/services/SharedProperties.js"></script>
 
     <!-- Calendar files -->
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
@@ -90,7 +90,7 @@
                         <ul>
                             <li class="active"><a href="user_reserve_restaurant.html">Create</a></li>
                             <li><a href="user_my_reservations.html">Existing</a></li>
-                            <li class="has-dropdown"><a href="#"><span>Hello, {{username}}</span></a>
+                            <li class="has-dropdown"><a href="#"><span class="icon" ng-show="true"><i class="ti-user"></i></a>
                                 <ul class="dropdown">
                                     <li><a href="#">Settings</a></li>
                                     <li><a href="#">Logout</a></li>
@@ -325,28 +325,10 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <div ng-show="hh">
-                                    <tbody ng-repeat="item in restaurant_info.hh.menu.appetizers.items">
+                                <div>
+                                    <tbody ng-repeat="item in menu_appetizers">
                                         <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="pk">
-                                    <tbody ng-repeat="item in restaurant_info.pk.menu.appetizers.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="sycamore">
-                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.appetizers.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td><input type="number" style="width:15%" ng-model="item.scale"></input></td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.price }}</td>
                                         </tr>
@@ -365,28 +347,10 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <div ng-show="hh">
-                                    <tbody ng-repeat="item in restaurant_info.hh.menu.entrees.items">
+                                <div>
+                                    <tbody ng-repeat="item in menu_entrees">
                                         <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="pk">
-                                    <tbody ng-repeat="item in restaurant_info.pk.menu.entrees.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="sycamore">
-                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.entrees.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td><input type="number" style="width:15%" ng-model="item.scale"></input></td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.price }}</td>
                                         </tr>
@@ -405,28 +369,10 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <div ng-show="hh">
-                                    <tbody ng-repeat="item in restaurant_info.hh.menu.desserts.items">
+                                <div>
+                                    <tbody ng-repeat="item in menu_desserts">
                                         <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="pk">
-                                    <tbody ng-repeat="item in restaurant_info.pk.menu.desserts.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="sycamore">
-                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.desserts.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td><input type="number" style="width:15%" ng-model="item.scale"></input></td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.price }}</td>
                                         </tr>
@@ -445,28 +391,10 @@
                                         <th>Price</th>
                                     </tr>
                                 </thead>
-                                <div ng-show="hh">
-                                    <tbody ng-repeat="item in restaurant_info.hh.menu.drinks.items">
+                                <div>
+                                    <tbody ng-repeat="item in menu_drinks">
                                         <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="pk">
-                                    <tbody ng-repeat="item in restaurant_info.pk.menu.drinks.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </div>
-                                <div ng-show="sycamore">
-                                    <tbody ng-repeat="item in restaurant_info.sycamore.menu.drinks.items">
-                                        <tr>
-                                            <td><input type="number" style="width:15%"></input></td>
+                                            <td><input type="number" style="width:15%" ng-model="item.scale"></input></td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.price }}</td>
                                         </tr>
@@ -541,7 +469,7 @@
                   <tbody>
                     <tr>
                       <th scope="row" style="float:right; border-style:none"> Confirmation Number: </th>
-                      <td style="border-style:none"> Random Number </td>
+                      <td style="border-style:none"> {{confNum}} </td>
                     </tr>
                     <tr>
                       <th scope="row" style="float:right; border-style:none"> Name: </th>
@@ -569,7 +497,7 @@
                     </tr>
                     <tr>
                       <th scope="row" style="float:right; border-style:none"> Total Price: </th>
-                      <td style="border-style:none"> Price </td>
+                      <td style="border-style:none"> ${{totalPrice}} </td>
                     </tr>
                   </tbody>
                 </table>

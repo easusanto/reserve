@@ -5,7 +5,7 @@ angular.module('myApp', ['ngRoute', 'ui.calendar'])
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-        .when('/', {
+        .when('/login', {
             controller: 'LoginController',
             templateUrl: 'public/views/login.html',
             hideMenus: true
@@ -34,7 +34,7 @@ angular.module('myApp', ['ngRoute', 'ui.calendar'])
 
 
 
-        .otherwise({ redirectTo: '/' });
+        .otherwise({ redirectTo: '/login' });
 }]);
 
 // .run(['$rootScope', '$location', '$cookieStore', '$http',

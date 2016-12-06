@@ -1,10 +1,11 @@
 module.exports = function(app, User, Reservation) {
-    
+
     app.post('/login', function(req, res){
         var username = req.body.username;
         var password = req.body.password;
 
         User.findOne({username: username, password: password}, function(err, user){
+
             if(err){
                 console.log(err);
                 return res.status(500).send();
@@ -14,7 +15,7 @@ module.exports = function(app, User, Reservation) {
                 return res.status(404).send();
             }
             res.user = user;
-            res.json(user, {message: 'success'});
+            res.json(user);
             return res.status(200).send();
         })
     });

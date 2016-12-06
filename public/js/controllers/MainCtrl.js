@@ -1,22 +1,24 @@
 var app = angular.module('myApp');
 
 app.controller('MainController',
-    ['$scope', '$rootScope', '$anchorScroll', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig', '$window', 'appService',
-    function ($scope, $rootScope, $anchorScroll, $location, $http, $timeout, $compile, uiCalendarConfig, $window, appService) {
-    $scope.username = $rootScope.username;
-    console.log($scope.username);
+    ['$scope', '$rootScope', '$anchorScroll', '$location', '$http', '$timeout', '$compile', 'uiCalendarConfig', '$window', 'sharedProperties',
+    function ($scope, $rootScope, $anchorScroll, $location, $http, $timeout, $compile, uiCalendarConfig, $window, sharedProperties) {
+    $scope.username = "VSA";
+
     $scope.restaurant_name = "";
     $scope.restaurant_fullName = "";
     $scope.restaurant_location = "";
     $scope.section_of_venue = "";
     $scope.floor = "";
     $scope.catering = "";
-    $scope.catering_options = "";
+    $scope.catering_options = "Yes";
     $scope.date = "";
     $scope.start_time = "";
     $scope.end_time = "";
     $scope.number_of_people = "";
     $scope.requests = "";
+    $scope.totalPrice = 0;
+    $scope.confNum;
 
     $scope.section1Toggle = true;
     $scope.section2Toggle = false;
@@ -40,158 +42,262 @@ app.controller('MainController',
 
     $scope.available_hours = [];
 
-    $scope.restaurant_info ={
-        "hh": {
-            "id": "hh",
-            "name": "Hokie House",
-            "menu": {
-                "appetizers": {
-                    "name": "appetizers",
-                    "items": [{
-                        "name": "Wings",
-                        "price": "7.50"
-                    }, {
-                        "name": "Bacon Cheese Fries",
-                        "price": "6.50"
-                    }, {
-                        "name": "Nachos",
-                        "price": "6.00"
-                    }]
-                },
-                "entrees": {
-                    "name": "entrees",
-                    "items": [{
-                        "name": "Hokie Club",
-                        "price": "7.95"
-                    }, {
-                        "name": "Hokie Burger",
-                        "price": "7.50"
-                    }, {
-                        "name": "House Salad",
-                        "price": "6.50"
-                    }]
-                },
-                "desserts": {
-                    "name": "desserts",
-                    "items": {
-                        "name": "Ice Cream",
-                        "price": "3.50"
-                    }
-                },
-                "drinks": {
-                    "name": "drinks",
-                    "items": [{
-                        "name": "Pepsi",
-                        "price": "1.79"
-                    }, {
-                        "name": "Water",
-                        "price": "0.50"
-                    }, {
-                        "name": "Ice Tea",
-                        "price": "1.79"
-                    }]
-                }
-            }
-        },
-        "pk": {
-            "id": "pk",
-            "name": "PK's",
-            "menu": {
-                "appetizers": {
-                    "name": "appetizers",
-                    "items": [{
-                        "name": "Wings",
-                        "price": "8.99"
-                    }, {
-                        "name": "Loaded Cheese Fries",
-                        "price": "8.99"
-                    }, {
-                        "name": "Nachos Grande",
-                        "price": "7.99"
-                    }]
-                },
-                "entrees": {
-                    "name": "entrees",
-                    "items": [{
-                        "name": "Philly Cheesesteak",
-                        "price": "7.99"
-                    }, {
-                        "name": "Chicken Breast",
-                        "price": "8.99"
-                    }, {
-                        "name": "Pasta Alfredo",
-                        "price": "8.59"
-                    }]
-                },
-                "desserts": {
-                    "name": "desserts",
-                    "items": {
-                        "name": "Brownie Sundae",
-                        "price": "3.99"
-                    }
-                },
-                "drinks": {
-                    "name": "drinks",
-                    "items": [{
-                        "name": "b",
-                        "price": "1.80"
-                    }, {
-                        "name": "b",
-                        "price": "0.50"
-                    }, {
-                        "name": "b Tea",
-                        "price": "1.80"
-                    }]
-                }
-            }
-        },
-        "sycamore": {
-            "id": "sycamore",
-            "name": "Sycamore Deli",
-            "menu": {
-                "appetizers": {
-                    "name": "appetizers",
-                    "items": {
-                        "name": "Peewee",
-                        "price": "4.25"
-                    }
-                },
-                "entrees": {
-                    "name": "entrees",
-                    "items": [{
-                        "name": "Burger",
-                        "price": "7.75"
-                    }, {
-                        "name": "Hotdog",
-                        "price": "4.49"
-                    }, {
-                        "name": "Sub",
-                        "price": "7.49"
-                    }]
-                },
-                "desserts": {
-                    "name": "desserts",
-                    "items": {
-                        "name": "Ice Cream Sandwich",
-                        "price": "2.50"
-                    }
-                },
-                "drinks": {
-                    "name": "drinks",
-                    "items": [{
-                        "name": "a",
-                        "price": "1.75"
-                    }, {
-                        "name": "a",
-                        "price": "0.25"
-                    }, {
-                        "name": "a Tea",
-                        "price": "1.65"
-                    }]
-                }
-            }
-        }
- };
+    $scope.restaurant_info = {
+	"hh": {
+		"id": "hh",
+		"name": "Hokie House",
+		"menu": {
+			"appetizers": {
+				"name": "appetizers",
+				"items": [{
+					"name": "Wings",
+					"price": 7.50,
+					"scale": 0
+				}, {
+					"name": "Bacon Cheese Fries",
+					"price": 6.50,
+					"scale": 0
+				}, {
+					"name": "Chicken Tenders",
+					"price": 7.00,
+					"scale": 0
+				}, {
+					"name": "Mozzarella Sticks",
+					"price": 5.50,
+					"scale": 0
+				}, {
+					"name": "Nachos",
+					"price": 6.00,
+					"scale": 0
+				}]
+			},
+			"entrees": {
+				"name": "entrees",
+				"items": [{
+					"name": "Hokie Club",
+					"price": 7.95,
+					"scale": 0
+				}, {
+					"name": "Club Wrap",
+					"price": 7.50,
+					"scale": 0
+				}, {
+					"name": "Philly Cheese Steak",
+					"price": 7.95,
+					"scale": 0
+				}, {
+					"name": "Hokie Burger",
+					"price": 7.50,
+					"scale": 0
+				}, {
+					"name": "House Salad",
+					"price": 6.50,
+					"scale": 0
+				}]
+			},
+			"desserts": {
+				"name": "desserts",
+				"items": [{
+					"name": "Ice Cream",
+					"price": 3.50,
+					"scale": 0
+				}]
+			},
+			"drinks": {
+				"name": "drinks",
+				"items": [{
+					"name": "Pepsi",
+					"price": 1.79,
+					"scale": 0
+				}, {
+					"name": "Diet Pepsi",
+					"price": 1.79,
+					"scale": 0
+				}, {
+					"name": "Lemonade",
+					"price": 1.69,
+					"scale": 0
+				}, {
+					"name": "Water",
+					"price": 0.50,
+					"scale": 0
+				}, {
+					"name": "Ice Tea",
+					"price": 1.79,
+					"scale": 0
+				}]
+			}
+		}
+	},
+	"pk": {
+		"id": "pk",
+		"name": "PK's",
+		"menu": {
+			"appetizers": {
+				"name": "appetizers",
+				"items": [{
+					"name": "Wings",
+					"price": 8.99,
+					"scale": 0
+				}, {
+					"name": "Chicken Tenders",
+					"price": 8.49,
+					"scale": 0
+				}, {
+					"name": "Grilled Quesadilla",
+					"price": 6.99,
+					"scale": 0
+				}, {
+					"name": "Loaded Cheese Fries",
+					"price": 8.99,
+					"scale": 0
+				}, {
+					"name": "Nachos Grande",
+					"price": 7.99,
+					"scale": 0
+				}]
+			},
+			"entrees": {
+				"name": "entrees",
+				"items": [{
+					"name": "Philly Cheesesteak",
+					"price": 7.99,
+					"scale": 0
+				}, {
+					"name": "Chef Salad",
+					"price": 8.59,
+					"scale": 0
+				}, {
+					"name": "Fried Shrimp",
+					"price": 12.99,
+					"scale": 0
+				}, {
+					"name": "Chicken Breast",
+					"price": 8.99,
+					"scale": 0
+				}, {
+					"name": "Pasta Alfredo",
+					"price": 8.59,
+					"scale": 0
+				}]
+			},
+			"desserts": {
+				"name": "desserts",
+				"items": [{
+					"name": "Brownie Sundae",
+					"price": 3.99,
+					"scale": 0
+				}]
+			},
+			"drinks": {
+				"name": "drinks",
+				"items": [{
+					"name": "Pepsi",
+					"price": 1.80,
+					"scale": 0
+				}, {
+					"name": "Diet Pepsi",
+					"price": 1.80,
+					"scale": 0
+				}, {
+					"name": "Lemonade",
+					"price": 1.70,
+					"scale": 0
+				}, {
+					"name": "Water",
+					"price": 0.50,
+					"scale": 0
+				}, {
+					"name": "Ice Tea",
+					"price": 1.80,
+					"scale": 0
+				}]
+			}
+		}
+	},
+	"sycamore": {
+		"id": "sycamore",
+		"name": "Sycamore Deli",
+		"menu": {
+			"appetizers": {
+				"name": "appetizers",
+				"items": [{
+					"name": "Peewee",
+					"price": 4.25,
+					"scale": 0
+				}, {
+					"name": "Wraps",
+					"price": 5.59,
+					"scale": 0
+				}, {
+					"name": "Fries",
+					"price": 3.49,
+					"scale": 0
+				}, {
+					"name": "Chips",
+					"price": 3.29,
+					"scale": 0
+				}]
+			},
+			"entrees": {
+				"name": "entrees",
+				"items": [{
+					"name": "Burger",
+					"price": 7.75,
+					"scale": 0
+				}, {
+					"name": "Wrap",
+					"price": 5.59,
+					"scale": 0
+				}, {
+					"name": "Sandwichs",
+					"price": 7.75,
+					"scale": 0
+				}, {
+					"name": "Hotdog",
+					"price": 4.49,
+					"scale": 0
+				}, {
+					"name": "Sub",
+					"price": 7.49,
+					"scale": 0
+				}]
+			},
+			"desserts": {
+				"name": "desserts",
+				"items": [{
+					"name": "Ice Cream Sandwich",
+					"price": 2.50,
+					"scale": 0
+				}]
+			},
+			"drinks": {
+				"name": "drinks",
+				"items": [{
+					"name": "Pepsi",
+					"price": 1.75,
+					"scale": 0
+				}, {
+					"name": "Diet Pepsi",
+					"price": 1.75,
+					"scale": 0
+				}, {
+					"name": "Lemonade",
+					"price": 1.65,
+					"scale": 0
+				}, {
+					"name": "Water",
+					"price": 0.25,
+					"scale": 0
+				}, {
+					"name": "Ice Tea",
+					"price": 1.65,
+					"scale": 0
+				}]
+			}
+		}
+	}
+};
 
     function getRestaurantFullNameAndLocation(restaurantShortName) {
       var fullName;
@@ -265,6 +371,13 @@ app.controller('MainController',
             $scope.rest_part_min_number = 20;
             $scope.rest_part_max_number = 50;
         }
+
+        //Create menus for restaurant
+        var restName = $scope.restaurant_name
+        $scope.menu_appetizers = ($scope.restaurant_info[restName].menu.appetizers.items);
+        $scope.menu_entrees = ($scope.restaurant_info[restName].menu.entrees.items);
+        $scope.menu_desserts = ($scope.restaurant_info[restName].menu.desserts.items);
+        $scope.menu_drinks = ($scope.restaurant_info[restName].menu.drinks.items);
     };
     $scope.section2 = function(section) {
         $scope.section_of_venue = section;
@@ -272,11 +385,13 @@ app.controller('MainController',
             $scope.section2Toggle = false;
             $scope.section3Toggle = true;
             $scope.part = true;
+            $scope.totalPrice += 99;
         }
         else if ($scope.section_of_venue == 'all'){
             $scope.section2Toggle = false;
             $scope.section4Toggle = true;
             $scope.part = false;
+            $scope.totalPrice += 299;
         }
         else {
             $scope.section2Toggle = false;
@@ -304,6 +419,7 @@ app.controller('MainController',
                 else if ($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
+                    $scope.catering_options = "None";
                 }
                 else{
                     alert('Please select catering.');
@@ -325,6 +441,7 @@ app.controller('MainController',
                 else if($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
+                    $scope.catering_options = "None";
                 }
                 else {
                     alert('Please select catering.');
@@ -334,25 +451,47 @@ app.controller('MainController',
                 alert('Please fix number of people to be inside min/max values.');
             }
         }
+
+
     };
     $scope.section5 = function(choices) {
-        $scope.catering_options = choices;
         $scope.section5Toggle = false;
         $scope.section6Toggle = true;
+        $scope.totalPrice += calculatePrices();
+    };
+
+    var calculatePrices = function() {
+        var totalPrice = 0;
+        for (item in $scope.menu_appetizers) {
+            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+        }
+        for (item in $scope.menu_entrees) {
+            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+        }
+        for (item in $scope.menu_desserts) {
+            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+        }
+        for (item in $scope.menu_drinks) {
+            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+        }
+        return totalPrice;
     };
 
     $scope.section6 = function(startTime, endTime) {
       //Dates to be sent to the Backend
-        $scope.start_time = startTime.getHours().toString() + ":"  + startTime.getMinutes().toString() + ":00";
-        $scope.end_time = endTime.getHours().toString() + ":"  + endTime.getMinutes().toString() + ":00";
+        $scope.start_time = startTime.getHours().toString() + ":"  + (startTime.getMinutes() > 10 ? startTime.getMinutes().toString() : "0"+startTime.getMinutes().toString()) + ":00";
+        $scope.end_time = endTime.getHours().toString() + ":"  + (endTime.getMinutes() > 10 ? endTime.getMinutes().toString() : "0"+endTime.getMinutes().toString())+ ":00";
       //Dates for UI
         $scope.reservation_time = parseTime(startTime) + " - " + parseTime(endTime);
         $scope.section6Toggle = false;
         $scope.section7Toggle = true;
 
         $scope.loadData();
+        $scope.confNum = $scope.getConfNum()
+        console.log("CONFIRMATION NUMBER: ", $scope.confNum);
     };
     $scope.section7 = function() {
+
       var reservationData = {
           username: $scope.username? $scope.username : "VSA",
           restaurant_name: $scope.restaurant_name,
@@ -364,11 +503,15 @@ app.controller('MainController',
           start_time: $scope.start_time,
           end_time: $scope.end_time,
           number_of_people: $scope.number_of_people,
-          requests: $scope.requests
+          requests: $scope.requests,
+          price : $scope.price,
+          confNum: $scope.ConfNum,
+          approval: false
       };
       console.log(reservationData);
       $scope.send_reservation(reservationData);
     };
+
     $scope.back = function(sectionNumber) {
        //going back from "Choose your type of reservation" page
        if(sectionNumber == 2){
@@ -413,8 +556,6 @@ app.controller('MainController',
        }
        //going back from "calendar" page
        else if(sectionNumber == 6){
-
-
                if($scope.catering == 'yes' || $scope.section_of_venue == 'catering'){
                    $scope.catering_options = "";
                    $scope.section5Toggle = true;
@@ -463,8 +604,11 @@ app.controller('MainController',
             start_time: reservation.start_time,
             end_time: reservation.end_time,
             number_of_people: reservation.number_of_people,
-            requests: reservation.requests
+            requests: reservation.requests,
+            confNum: reservation.confNum,
+            approval: reservation.approval
         };
+
          $http({
                 url: '/send_user_reservations',
                 method: "POST",
@@ -474,7 +618,7 @@ app.controller('MainController',
                 console.log("Reservation Sent");
 
                 //MOVE TO NEXT PAGE
-                //$window.location.href = '/user_my_reservations.html';
+                $window.location.href = '/user_my_reservations.html';
             }).error(function (data, status, headers, config) {
                 console.log("WE SEEM TO HAVE AN ERROR");
                 console.log(data);
@@ -491,7 +635,7 @@ app.controller('MainController',
 
     $scope.loadData = function() {
       var events = {
-        restaurant_name:  "hh",
+        restaurant_name:  $scope.restaurant_name,
       };
 
       $http({
@@ -623,7 +767,6 @@ app.controller('MainController',
         eventRender: $scope.eventRender,
         dayClick: function( date, jsEvent, view ) {
           $scope.date = parseDate(date);
-          console.log($scope.date);
           // change the day's background color to show selection
           if(thisDate !== null) {
             thisDate.css('background-color', '#f5f5f5');
@@ -634,6 +777,11 @@ app.controller('MainController',
 
       }
     };
+
+    $scope.getConfNum = function(){
+        var temp = Math.floor(Math.random() * (1000000000 - 1000000 + 1)) + 1000000;
+        return temp;
+    }
 
 
     $scope.changeLang = function() {

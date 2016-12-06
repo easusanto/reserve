@@ -89,7 +89,7 @@
                         <ul>
                             <li><a href="user_reserve_restaurant.html">Create</a></li>
                             <li class="active"><a href="user_my_reservations.html">Existing</a></li>
-                            <li class="has-dropdown"><a href="#"><span>Hello, {{ $rootScope.user.username }}</span></a>
+                            <li class="has-dropdown"><a href="#"><span class="icon" ng-show="true"><i class="ti-user"></i></a>
                                 <ul class="dropdown">
                                     <li><a href="#">Settings</a></li>
                                     <li><a href="#">Logout</a></li>
@@ -125,7 +125,6 @@
             <div class="">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                        <button ng-click="getReservations()">click </button>
                         <table class="table">
                         <thead>
                           <tr>

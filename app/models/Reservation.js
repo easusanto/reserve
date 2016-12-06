@@ -2,6 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var reservationSchema = new Schema({
+    confNum: {type: Number},
     username: {type: String},
     restaurant_name:  {type: String},
     section_of_venue: {type: String},   //part or all or NA
@@ -13,7 +14,7 @@ var reservationSchema = new Schema({
     end_time: {type: String},
     number_of_people: {type: Number},
     price: {type: Number},
-    requests: {type: String},
+    approval: {type: Boolean}
 });
 
 var Reservation = mongoose.model('reservation', reservationSchema);
