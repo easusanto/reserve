@@ -81,6 +81,7 @@ module.exports = function(app, User, Reservation) {
     });
 
     app.post('/send_user_reservations', function(req, res) {
+        var confNum = req.body.confNum;
         var restaurant_name = req.body.restaurant_name;
         var username = req.body.username;
         var section_of_venue = req.body.section_of_venue;   //part or all or NA
@@ -90,10 +91,12 @@ module.exports = function(app, User, Reservation) {
         var start_time = req.body.start_time;
         var end_time = req.body.end_time;
         var number_of_people = req.body.number_of_people;
-        var price= {type: Number};
-        var requests = req.body.requests;
+        var price= req.body.price;
+        var floor = req.body.floor;
+        var approval = req.body.approval;
 
         var newreservation = new Reservation();
+        newreservation.confNum = confNum;
         newreservation.username = username;
         newreservation.restaurant_name = restaurant_name;
         newreservation.section_of_venue = section_of_venue;
@@ -103,7 +106,9 @@ module.exports = function(app, User, Reservation) {
         newreservation.start_time = start_time;
         newreservation.end_time = end_time;
         newreservation.number_of_people = number_of_people;
-        newreservation.requests = requests;
+        newreservation.price = price;
+        newreservation.floor = floor;
+        newreservation.approval = approval;
 
         console.log("THIS IS MY RESERVATION: ", newreservation);
         newreservation.save(function(err, savedReservation){

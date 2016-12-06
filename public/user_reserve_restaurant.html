@@ -93,7 +93,7 @@
                             <li class="has-dropdown"><a href="#"><span class="icon" ng-show="true"><i class="ti-user"></i></a>
                                 <ul class="dropdown">
                                     <li><a href="#">Settings</a></li>
-                                    <li><a href="#">Logout</a></li>
+                                    <li><a href="/login.html">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -133,24 +133,24 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-6">
-                        <a href="" class="fh5co-project-item" ng-click="section1('hh')">
+                        <a href="" class="fh5co-project-item">
                             <figure>
-                                <img src="images/hokiehouse.jpg" alt="Image" class="img-responsive">
+                                <img src="images/hokiehouse.jpg" alt="Image" class="img-responsive" ng-click="section1('hh')">
                             </figure>
                             <div class="fh5co-text">
-                                <h2>Hokie House</h2>
+                                <h2 ng-click="redirectTo('https://www.facebook.com/hokiehouse')">Hokie House</h2>
                                 <p>A venerable bi-level spot for beers, burgers &amp; pub grub, as well as sports on TV, billiards &amp; darts.</p>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-6">
-                        <a href="" class="fh5co-project-item" ng-click="section1('sycamore')">
+                        <a href="" class="fh5co-project-item">
                             <figure>
-                                <img src="images/sycamoredeli.jpg" alt="Image" class="img-responsive" style="height:100%;width:100%">
+                                <img src="images/sycamoredeli.jpg" alt="Image" class="img-responsive" style="height:100%;width:100%" ng-click="section1('sycamore')">
                             </figure>
                             <div class="fh5co-text">
-                                <h2>Sycamore Deli</h2>
+                                <h2 ng-click="redirectTo('http://www.sycamoredeli.com/')">Sycamore Deli</h2>
                                 <p>Offering subs, sandwiches, wraps, live music and more in Blacksburg since 1995.
                                     Come in today!</p>
                             </div>
@@ -158,12 +158,12 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-6">
-                        <a href="" class="fh5co-project-item" ng-click="section1('pk')">
+                        <a href="" class="fh5co-project-item">
                             <figure>
-                                <img src="images/pks.jpg" alt="Image" class="img-responsive">
+                                <img src="images/pks.jpg" alt="Image" class="img-responsive" ng-click="section1('pk')">
                             </figure>
                             <div class="fh5co-text">
-                                <h2>PK's</h2>
+                                <h2 ng-click="redirectTo('http://pksbarandgrill.com/')">PK's</h2>
                                 <p>Get your favorite PK’s wings, pizza, subs, wraps, salads, pasta &amp; more for LUNCH, DINNER, and any time in between.</p>
                             </div>
                         </a>
@@ -503,7 +503,7 @@
                 </table>
 
                 <a href="#" class="btn btn-default btn-sm" ng-click="back(7)">Back</a>
-                <a href="#" class="btn btn-default btn-sm" style="float:right; display:inline" ng-click="section7()">Submit To Restaurant</a>
+                <a href="#" class="btn btn-primary btn-sm" style="float:right; display:inline" ng-click="section7()">Submit To Restaurant</a>
 
             </div>
         </div>

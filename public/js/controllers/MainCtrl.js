@@ -11,7 +11,7 @@ app.controller('MainController',
     $scope.section_of_venue = "";
     $scope.floor = "";
     $scope.catering = "";
-    $scope.catering_options = "Yes";
+    $scope.catering_options = "N/A";
     $scope.date = "";
     $scope.start_time = "";
     $scope.end_time = "";
@@ -106,24 +106,20 @@ app.controller('MainController',
 			"drinks": {
 				"name": "drinks",
 				"items": [{
-					"name": "Pepsi",
+					"name": "Soda",
 					"price": 1.79,
 					"scale": 0
-				}, {
-					"name": "Diet Pepsi",
-					"price": 1.79,
-					"scale": 0
-				}, {
-					"name": "Lemonade",
+				},  {
+					"name": "Juice",
 					"price": 1.69,
 					"scale": 0
 				}, {
-					"name": "Water",
-					"price": 0.50,
+                    "name": "Bottled Beer",
+					"price": 5.99,
 					"scale": 0
-				}, {
-					"name": "Ice Tea",
-					"price": 1.79,
+                }, {
+					"name": "Draft Beer",
+					"price": 7.99,
 					"scale": 0
 				}]
 			}
@@ -192,24 +188,20 @@ app.controller('MainController',
 			"drinks": {
 				"name": "drinks",
 				"items": [{
-					"name": "Pepsi",
-					"price": 1.80,
+					"name": "Soda",
+					"price": 1.79,
 					"scale": 0
-				}, {
-					"name": "Diet Pepsi",
-					"price": 1.80,
-					"scale": 0
-				}, {
+				},  {
 					"name": "Lemonade",
-					"price": 1.70,
+					"price": 1.69,
 					"scale": 0
 				}, {
-					"name": "Water",
-					"price": 0.50,
+                    "name": "Bottled Beer",
+					"price": 5.99,
 					"scale": 0
-				}, {
-					"name": "Ice Tea",
-					"price": 1.80,
+                }, {
+					"name": "Draft Beer",
+					"price": 7.99,
 					"scale": 0
 				}]
 			}
@@ -274,24 +266,20 @@ app.controller('MainController',
 			"drinks": {
 				"name": "drinks",
 				"items": [{
-					"name": "Pepsi",
-					"price": 1.75,
+					"name": "Soda",
+					"price": 1.79,
+					"scale": 0
+				},  {
+					"name": "Tea",
+					"price": 1.69,
 					"scale": 0
 				}, {
-					"name": "Diet Pepsi",
-					"price": 1.75,
+                    "name": "Bottled Beer",
+					"price": 5.99,
 					"scale": 0
-				}, {
-					"name": "Lemonade",
-					"price": 1.65,
-					"scale": 0
-				}, {
-					"name": "Water",
-					"price": 0.25,
-					"scale": 0
-				}, {
-					"name": "Ice Tea",
-					"price": 1.65,
+                }, {
+					"name": "Draft Beer",
+					"price": 7.99,
 					"scale": 0
 				}]
 			}
@@ -419,7 +407,6 @@ app.controller('MainController',
                 else if ($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
-                    $scope.catering_options = "None";
                 }
                 else{
                     alert('Please select catering.');
@@ -441,7 +428,6 @@ app.controller('MainController',
                 else if($scope.catering == "no"){
                     $scope.section4Toggle = false;
                     $scope.section6Toggle = true;
-                    $scope.catering_options = "None";
                 }
                 else {
                     alert('Please select catering.');
@@ -462,18 +448,32 @@ app.controller('MainController',
 
     var calculatePrices = function() {
         var totalPrice = 0;
+        var orderedFood = "";
         for (item in $scope.menu_appetizers) {
-            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+            if($scope.menu_appetizers[item].scale > 0) {
+                totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+                orderedFood += ($scope.menu_appetizers[item].name + "(" + $scope.menu_appetizers[item].scale + ") | ");
+            };
         }
         for (item in $scope.menu_entrees) {
-            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+            if($scope.menu_entrees[item].scale > 0) {
+                totalPrice += ($scope.menu_entrees[item].scale * $scope.menu_entrees[item].price);
+                orderedFood += ($scope.menu_entrees[item].name + "(" + $scope.menu_entrees[item].scale + ") | ");
+            };
         }
         for (item in $scope.menu_desserts) {
-            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+            if($scope.menu_desserts[item].scale > 0) {
+                totalPrice += ($scope.menu_desserts[item].scale * $scope.menu_desserts[item].price);
+                orderedFood += ($scope.menu_desserts[item].name + "(" + $scope.menu_desserts[item].scale + ") | ");
+            };
         }
         for (item in $scope.menu_drinks) {
-            totalPrice += ($scope.menu_appetizers[item].scale * $scope.menu_appetizers[item].price);
+            if($scope.menu_drinks[item].scale > 0) {
+                totalPrice += ($scope.menu_drinks[item].scale * $scope.menu_drinks[item].price);
+                orderedFood += ($scope.menu_drinks[item].name + "(" + $scope.menu_drinks[item].scale + ") | ");
+            };
         }
+        $scope.catering_options = orderedFood.substring(0, orderedFood.length - 2);
         return totalPrice;
     };
 
@@ -487,8 +487,7 @@ app.controller('MainController',
         $scope.section7Toggle = true;
 
         $scope.loadData();
-        $scope.confNum = $scope.getConfNum()
-        console.log("CONFIRMATION NUMBER: ", $scope.confNum);
+        $scope.confNum = $scope.getConfNum();
     };
     $scope.section7 = function() {
 
@@ -503,11 +502,11 @@ app.controller('MainController',
           start_time: $scope.start_time,
           end_time: $scope.end_time,
           number_of_people: $scope.number_of_people,
-          requests: $scope.requests,
-          price : $scope.price,
-          confNum: $scope.ConfNum,
+          price : $scope.totalPrice,
+          confNum: $scope.confNum,
           approval: false
       };
+
       console.log(reservationData);
       $scope.send_reservation(reservationData);
     };
@@ -593,6 +592,7 @@ app.controller('MainController',
         }
     };
     $scope.send_reservation = function(reservation) {
+
         var data1 = {
             username: reservation.username,
             restaurant_name: reservation.restaurant_name,
@@ -604,10 +604,11 @@ app.controller('MainController',
             start_time: reservation.start_time,
             end_time: reservation.end_time,
             number_of_people: reservation.number_of_people,
-            requests: reservation.requests,
+            price: reservation.price,
             confNum: reservation.confNum,
             approval: reservation.approval
         };
+        console.log(data1);
 
          $http({
                 url: '/send_user_reservations',
@@ -616,7 +617,6 @@ app.controller('MainController',
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 console.log("Reservation Sent");
-
                 //MOVE TO NEXT PAGE
                 $window.location.href = '/user_my_reservations.html';
             }).error(function (data, status, headers, config) {
@@ -783,6 +783,9 @@ app.controller('MainController',
         return temp;
     }
 
+    $scope.redirectTo = function(url) {
+        $window.open(url);
+    }
 
     $scope.changeLang = function() {
       if($scope.changeTo === 'Hungarian'){

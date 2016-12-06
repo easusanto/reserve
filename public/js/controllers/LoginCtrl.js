@@ -26,7 +26,7 @@ app.controller('LoginController',
                     else if(data.account_type == 'restaurant'){
                         changeLocation('/restaurant_side_home.html', true);
                     }
-                }  
+                }
                 else{
                     alert("Incorrect username/password.");
                     console.log(data.message);
@@ -60,7 +60,7 @@ app.controller('LoginController',
                 console.log(data);
             });
           } else {
-            alert("Your password does not match");
+            alert("Your Password Does Not Match");
           }
         };
 
