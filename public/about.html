@@ -5,19 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Reserve</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="FreeHTML5.co" />
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
+
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     
@@ -42,119 +30,128 @@
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
+
+        <!-- Angular -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+
+
+    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+    <script src="/node_modules/angular-aria/angular-aria.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+
+
+    <!-- Main -->
+    <script src="js/app.js"></script>
+    <script src="js/services/AppService.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/services/SharedProperties.js"></script>
 
     </head>
-    <body>
+<body>        
+    <div ng-app="myApp" ng-controller="LoginController">
+        <div class="gtco-loader"></div>
         
-    <div class="gtco-loader"></div>
-    
-    <div id="page">
+        <div id="page">    
+            <nav class="gtco-nav" role="navigation">
+                    <div class="gtco-container">
 
-    
-        <nav class="gtco-nav" role="navigation">
-                <div class="gtco-container">
-
-                    <div class="row">
-                        <div class="col-sm-4 col-xs-12">
-                            <div id="gtco-logo"><a href="login.html">Reserve <em>.</em></a></div>
-                        </div>
-                        <div class="col-xs-8 text-right menu-1">
-
-                        <form novalidate class="simple-form">
-                            <div class="row form-group">
-                                <input type="text" class="form-control" id="username"
-                                ng-model="login_user.username" placeholder="username"
-                                style="width:30%; display:inline;">
-                                <input type="password" class="form-control" id="password"
-                                ng-model="login_user.password" placeholder="password"
-                                style="width:30%; display:inline;">
-                                <input type="submit" ng-click="login(login_user)" class="btn btn-primary" value="Log in">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div id="gtco-logo"><a href="login.html">Reserve <em>.</em></a></div>
                             </div>
-                        </form>
-                    </div>
-                    </div>
+                            <div class="col-xs-8 text-right menu-1">
 
-                </div>
-            </nav>
-        
-        <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner"
-            style="background: url(images/food.jpg) fixed center; ">
-                <div class="overlay"></div>
-                <div class="gtco-container">
-                    <div class="row">
-                        <div class="col-md-12 col-md-offset-0 text-left">
-                            <div class="row row-mt-15em">
+                            <form novalidate class="simple-form">
+                                <div class="row form-group">
+                                    <input type="text" class="form-control" id="username"
+                                    ng-model="login_user.username" placeholder="username"
+                                    style="width:30%; display:inline; background-color: #f2f2f2">
+                                    <input type="password" class="form-control" id="password"
+                                    ng-model="login_user.password" placeholder="password"
+                                    style="width:30%; display:inline; background-color: #f2f2f2">
+                                    <input type="submit" ng-click="login(login_user)" class="btn btn-primary" value="Log in">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
 
-                                <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
-                                    <span class="intro-text-small">Find out more about what we do</span>
-                                    <h1>About Us</h1>
+                    </div>
+                </nav>
+            
+            <header id="gtco-header" class="gtco-cover gtco-cover-sm " role="banner"
+                style="background: url(images/food.jpg) fixed center; ">
+                    <div class="overlay"></div>
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-0 text-left">
+                                <div class="row row-mt-15em">
+
+                                    <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+                                        <span class="intro-text-small">Find out more about what we do</span>
+                                        <h1>About Us</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </header>
-        
-        
-        
-        <div class="gtco-section border-bottom">
-            <div class="gtco-container">
-                <div class="row">
-                    <div class="col-md-8 text-left gtco-heading">
-                        <h2>Reserve</h2>
-                        <p>We are the bridge between the restaurant venues and the large groups that need it.
-                            One place for all of your venue reservation needs.</p>
+                </header>
+            <div class="gtco-section border-bottom">
+                <div class="gtco-container">
+                    <div class="row">
+                        <div class="col-md-8 text-left gtco-heading">
+                            <h2>Reserve</h2>
+                            <p>We are the bridge between the restaurant venues and the large groups that need it.
+                                One place for all of your venue reservation needs.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
-                            <span class="icon">
-                                <i class="icon-check"></i>
-                            </span>
-                            <div class="feature-copy">
-                                <h3>Restaurants</h3>
-                                <p>Restaurants are able to advertise their promotions and
-                                    easily book space in their venue for large groups of people.
-                                </p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
+                                <span class="icon">
+                                    <i class="icon-check"></i>
+                                </span>
+                                <div class="feature-copy">
+                                    <h3>Restaurants</h3>
+                                    <p>Restaurants are able to advertise their promotions and
+                                        easily book space in their venue for large groups of people.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
-                            <span class="icon">
-                                <i class="icon-check"></i>
-                            </span>
-                            <div class="feature-copy">
-                                <h3>Student Organizations</h3>
-                                <p>Student Organizations don't need to sift through emails to find the venue confirmation
-                                    for their upcoming date party or large event.</p>
+                            <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
+                                <span class="icon">
+                                    <i class="icon-check"></i>
+                                </span>
+                                <div class="feature-copy">
+                                    <h3>Student Organizations</h3>
+                                    <p>Student Organizations don't need to sift through emails to find the venue confirmation
+                                        for their upcoming date party or large event.</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
-                            <span class="icon">
-                                <i class="icon-check"></i>
-                            </span>
-                            <div class="feature-copy">
-                                <h3>Company Gatherings</h3>
-                                <p>Any organization is able to create an account and pick through a selection of
-                                    nearby restaurants or spaces to reserve.</p>
+                            <div class="feature-left animate-box" data-animate-effect="fadeInLeft">
+                                <span class="icon">
+                                    <i class="icon-check"></i>
+                                </span>
+                                <div class="feature-copy">
+                                    <h3>Company Gatherings</h3>
+                                    <p>Any organization is able to create an account and pick through a selection of
+                                        nearby restaurants or spaces to reserve.</p>
+                                </div>
                             </div>
+
+
                         </div>
-
-
-                    </div>
-                    <div class="col-md-7 macbook-wrap animate-box" data-animate-effect="fadeInRight">
-                        <img src="images/food4.jpg" >
+                        <div class="col-md-7 macbook-wrap animate-box" data-animate-effect="fadeInRight">
+                            <img src="images/food4.jpg" >
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
 
