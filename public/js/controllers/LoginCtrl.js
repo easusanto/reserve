@@ -26,6 +26,9 @@ app.controller('LoginController',
                     else if(data.account_type == 'restaurant'){
                         changeLocation('/restaurant_side_home.html', true);
                     }
+                    else {
+                        alert("Incorrect username/password.");
+                    }
                 }
                 else{
                     alert("Incorrect username/password.");
